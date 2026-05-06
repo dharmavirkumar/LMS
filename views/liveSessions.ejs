@@ -1,0 +1,108 @@
+<link rel="stylesheet" href="https://cdn.tailwindcss.com" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" />
+
+<%- include("partial/nav") %>
+
+<div class="max-w-7xl mx-auto p-6">
+
+  <!-- HEADER -->
+  <div class="flex justify-between items-center mb-8">
+    <h1 class="text-3xl font-bold">🔴 Live Sessions</h1>
+    <span class="text-sm text-gray-500">Stay updated & join live classes</span>
+  </div>
+
+  <!-- EMPTY STATE -->
+  <% if (!sessions.length) { %>
+    <div class="text-center py-20 text-gray-400">
+      😕 No live sessions available
+    </div>
+  <% } %>
+
+  <div class="grid md:grid-cols-2 gap-6">
+
+    <% sessions.forEach(session => { 
+
+      const now = new Date();
+      const start = new Date(session.date);
+      const end = new Date(start.getTime() + session.duration * 60000);
+
+      let status = "upcoming";
+
+      if (now >= start && now <= end) status = "live";
+      else if (now > end) status = "ended";
+
+    %>
+
+    <!-- CARD -->
+    <div class="bg-white p-6 rounded-2xl shadow hover:shadow-lg transition">
+
+      <!-- TITLE -->
+      <div class="flex justify-between items-start mb-2">
+        <h2 class="text-xl font-semibold">
+          <%= session.title %>
+        </h2>
+
+        <!-- STATUS BADGE -->
+        <% if(status === "live") { %>
+          <span class="bg-red-500 text-white text-xs px-2 py-1 rounded animate-pulse">
+            LIVE
+          </span>
+        <% } else if(status === "upcoming") { %>
+          <span class="bg-yellow-400 text-black text-xs px-2 py-1 rounded">
+            Upcoming
+          </span>
+        <% } else { %>
+          <span class="bg-gray-400 text-white text-xs px-2 py-1 rounded">
+            Ended
+          </span>
+        <% } %>
+      </div>
+
+      <!-- DESCRIPTION -->
+      <p class="text-gray-500 text-sm mb-3">
+        <%= session.description || "No description provided" %>
+      </p>
+
+      <!-- DATE -->
+      <p class="text-sm text-gray-600 mb-1">
+        📅 <%= start.toLocaleDateString() %>
+      </p>
+
+      <p class="text-sm text-gray-600 mb-3">
+        ⏰ <%= start.toLocaleTimeString() %>
+      </p>
+
+      <!-- COURSE -->
+      <p class="text-sm mb-4">
+        🎓 <%= session.course?.title || "General Session" %>
+      </p>
+
+      <!-- ACTION BUTTON -->
+      <% if(status === "live") { %>
+
+        <a href="<%= session.zoomLink %>" target="_blank"
+           class="block bg-red-500 hover:bg-red-600 text-white text-center py-2 rounded-lg font-semibold animate-pulse">
+          🔴 Join Now
+        </a>
+
+      <% } else if(status === "upcoming") { %>
+
+        <button class="w-full bg-yellow-400 py-2 rounded-lg cursor-not-allowed">
+          ⏳ Starts Soon
+        </button>
+
+      <% } else { %>
+
+        <button class="w-full bg-gray-400 py-2 rounded-lg cursor-not-allowed">
+          ❌ Session Ended
+        </button>
+
+      <% } %>
+
+    </div>
+
+    <% }) %>
+
+  </div>
+
+</div>

@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= course?.title || "Course Player" %></title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gradient-to-br from-slate-950 via-slate-900 to-gray-950 text-white">
+
+<div class="flex flex-col lg:flex-row min-h-screen">
+
+    <!-- ================= LEFT SIDE ================= -->
+    <main class="flex-1 p-4 lg:p-8">
+
+        <!-- Course Title -->
+        <div class="mb-8">
+            <h1 class="text-4xl lg:text-5xl font-black bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+                <%= course?.title || "Untitled Course" %>
+            </h1>
+            <p class="text-gray-400 mt-3 text-lg">
+                Continue your learning journey
+            </p>
+        </div>
+
+        <!-- Video Player -->
+       <!-- Replace your existing VIDEO PLAYER section with this -->
+
+<!-- ================= VIDEO PLAYER ================= -->
+<div class="relative rounded-3xl overflow-hidden shadow-2xl bg-black border border-gray-800">
+    <video
+        id="videoPlayer"
+        controls
+        controlsList="nodownload"
+        class="w-full aspect-video"
+        poster="<%= course?.thumbnail || '' %>"
+    >
+        <%
+            const firstLesson = course?.modules?.[0]?.lessons?.[0] || null;
+            const currentLesson = lesson || firstLesson;
+        %>
+
+       <% if (currentLesson && currentLesson.videos && currentLesson.videos.length) { %>
+    <source
+        src="/course/secure-video/<%= encodeURIComponent(currentLesson.videos[0]) %>?courseId=<%= course._id %>"
+        type="video/mp4"
+    />
+<% } else { %>
+    Your browser does not support HTML5 video.
+<% } %>
+</div>
+
+        <!-- Progress Card -->
+        <div class="mt-8 bg-white/10 backdrop-blur-xl border border-white/10 rounded-3xl p-6 shadow-2xl">
+            <div class="flex justify-between items-center mb-4">
+                <span class="font-bold text-lg">Course Progress</span>
+                <span id="progressText" class="text-indigo-400 font-bold text-xl">
+                    0%
+                </span>
+            </div>
+
+            <div class="w-full bg-gray-800 rounded-full h-4 overflow-hidden">
+                <div
+                    id="progressBar"
+                    class="bg-gradient-to-r from-indigo-500 to-purple-600 h-4 rounded-full transition-all duration-700"
+                    style="width:0%"
+                ></div>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="mt-8 grid grid-cols-2 lg:grid-cols-5 gap-4">
+
+            <button class="bg-white/10 hover:bg-white/20 border border-white/10 rounded-2xl py-4 font-semibold transition">
+                ⬇ Download
+            </button>
+
+            
+               <a href="/chat" class="text-center bg-white/10 hover:bg-white/20 border border-white/10 rounded-2xl py-4 font-semibold transition">💬 Mentor</a> 
+            
+
+            <button class="bg-white/10 hover:bg-white/20 border border-white/10 rounded-2xl py-4 font-semibold transition">
+                ❓ Doubts
+            </button>
+
+            <a
+                id="certificateBtn"
+                href="/certificate/<%= course._id %>"
+                class="hidden text-center bg-gradient-to-r from-green-500 to-emerald-600 rounded-2xl py-4 font-bold hover:scale-105 transition"
+            >
+                🏆 Certificate
+            </a>
+
+            <a
+                href="/internship"
+                class="text-center bg-gradient-to-r from-indigo-600 to-purple-600 rounded-2xl py-4 font-bold hover:scale-105 transition"
+            >
+                🚀 Internship
+            </a>
+        </div>
+    </main>
+
+    <!-- ================= RIGHT SIDEBAR ================= -->
+    <aside class="w-full lg:w-[420px] bg-white/5 backdrop-blur-2xl border-l border-white/10 p-6">
+
+        <!-- Sidebar Progress -->
+        <div class="bg-gradient-to-r from-indigo-500/20 to-purple-500/20 border border-indigo-500/20 rounded-3xl p-6 mb-8">
+            <div class="flex justify-between mb-4">
+                <span class="font-semibold">Overall Progress</span>
+                <span id="sidebarText" class="font-bold text-indigo-400">
+                    0%
+                </span>
+            </div>
+
+            <div class="w-full bg-gray-800 rounded-full h-3">
+                <div
+                    id="sidebarProgress"
+                    class="bg-gradient-to-r from-indigo-500 to-purple-600 h-3 rounded-full transition-all duration-700"
+                    style="width:0%"
+                ></div>
+            </div>
+        </div>
+
+        <h2 class="text-3xl font-black mb-6">
+            📚 Course Lessons
+        </h2>
+
+       <div class="space-y-4 max-h-[75vh] overflow-y-auto pr-2">
+
+    <% let globalIndex = 0; %>
+
+    <% (course.modules || []).forEach((module, mIndex) => { %>
+        <div class="bg-white/5 border border-white/10 rounded-2xl overflow-hidden">
+
+            <button
+                onclick="toggleModule(<%= mIndex %>)"
+                class="w-full text-left px-5 py-4 font-bold hover:bg-white/10 transition"
+            >
+                📦 Module <%= mIndex + 1 %>:
+                <%= module.title %>
+            </button>
+
+            <div id="module-<%= mIndex %>" class="hidden p-4 space-y-3">
+
+                <% (module.lessons || []).forEach((lec) => { %>
+
+                    <div
+                        id="lec-<%= globalIndex %>"
+                        onclick='playLecture("<%= (lec.videos && lec.videos.length) ? lec.videos[0] : "" %>", <%= globalIndex %>)'
+                        class="p-4 rounded-2xl cursor-pointer bg-gray-800 hover:bg-indigo-600 transition duration-300"
+                    >
+                        ▶ <%= lec.title %>
+                    </div>
+
+                    <% globalIndex++; %>
+
+                <% }) %>
+
+            </div>
+        </div>
+    <% }) %>
+
+</div>
+    </aside>
+</div>
+
+<script>
+    const video = document.getElementById("videoPlayer");
+    const progressBar = document.getElementById("progressBar");
+    const progressText = document.getElementById("progressText");
+    const sidebarProgress = document.getElementById("sidebarProgress");
+    const sidebarText = document.getElementById("sidebarText");
+    const certificateBtn = document.getElementById("certificateBtn");
+
+    const courseId = "<%= course._id %>";
+
+    // ✅ Also replace videos array
+
+const videos = <%- JSON.stringify(
+    (course.modules || []).flatMap(module =>
+        (module.lessons || []).map(lesson =>
+            lesson.videos?.[0] || ""
+        )
+    )
+) %>;
+
+    const totalLectures = <%= (course.modules || []).reduce(
+        (acc, m) => acc + (m.lessons?.length || 0), 0
+    ) %>;
+
+    let currentActive = 0;
+    let certificateGenerated = false;
+
+    function toggleModule(index) {
+        document
+            .getElementById(`module-${index}`)
+            ?.classList.toggle("hidden");
+    }
+
+    function updateProgress(percent) {
+        progressText.textContent = `${percent}%`;
+        sidebarText.textContent = `${percent}%`;
+
+        progressBar.style.width = `${percent}%`;
+        sidebarProgress.style.width = `${percent}%`;
+    }
+
+    function highlightLesson(index) {
+        document
+            .querySelectorAll("[id^='lec-']")
+            .forEach(el => el.classList.remove(
+                "bg-indigo-600",
+                "ring-2",
+                "ring-indigo-400"
+            ));
+
+        const active = document.getElementById(`lec-${index}`);
+        if (active) {
+            active.classList.add(
+                "bg-indigo-600",
+                "ring-2",
+                "ring-indigo-400"
+            );
+        }
+    }
+
+   // ✅ Replace playLecture() function
+
+function playLecture(videoFile, index) {
+    if (!videoFile) {
+        alert("Video not found");
+        return;
+    }
+
+    const encodedVideo = encodeURIComponent(videoFile);
+
+    video.src = `/course/secure-video/${encodedVideo}?courseId=${courseId}`;
+    video.load();
+
+    video.play().catch(err => {
+        console.error("Video play failed:", err);
+    });
+
+    currentActive = index;
+    highlightLesson(index);
+}
+
+    async function checkCertificate() {
+        try {
+            const response = await fetch(`/certificate/${courseId}`);
+
+            if (response.ok) {
+                certificateBtn.classList.remove("hidden");
+                certificateGenerated = true;
+            }
+        } catch (error) {
+            console.log("Certificate check failed");
+        }
+    }
+
+    async function loadProgress() {
+        try {
+            const response = await fetch(`/progress/${courseId}`);
+            const data = await response.json();
+
+            if (!data.success) return;
+
+            const progress = data.progress || {};
+            const percent = progress.overallPercentage || 0;
+
+            updateProgress(percent);
+            await checkCertificate();
+
+            const completed = progress.completedLectures || [];
+
+            if (completed.length > 0) {
+                const lastLecture = completed[completed.length - 1];
+                if (videos[lastLecture]) {
+                    playLecture(videos[lastLecture], lastLecture);
+                }
+            } else if (videos.length > 0) {
+                playLecture(videos[0], 0);
+            }
+        } catch (error) {
+            console.error("Progress loading failed:", error);
+        }
+    }
+
+    video.addEventListener("ended", async () => {
+        try {
+            await fetch("/save-progress", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    courseId,
+                    lectureIndex: currentActive,
+                    totalLectures
+                })
+            });
+
+            const response = await fetch(`/progress/${courseId}`);
+            const data = await response.json();
+
+            if (!data.success) return;
+
+            const percent = data.progress?.overallPercentage || 0;
+            updateProgress(percent);
+
+            if (percent >= 100 && !certificateGenerated) {
+                certificateGenerated = true;
+
+                await fetch("/generate-certificate", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ courseId })
+                });
+
+                certificateBtn.classList.remove("hidden");
+            }
+
+            if (currentActive + 1 < videos.length) {
+                playLecture(
+                    videos[currentActive + 1],
+                    currentActive + 1
+                );
+            }
+        } catch (error) {
+            console.error("Progress save failed:", error);
+        }
+    });
+
+    loadProgress();
+</script>
+
+</body>
+</html>

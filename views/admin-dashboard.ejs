@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Panel</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100">
+
+<div class="flex min-h-screen">
+
+  <!-- 🔥 Sidebar -->
+  <aside class="w-64 bg-white shadow-lg p-6 hidden md:block">
+    <h2 class="text-2xl font-bold text-purple-600 mb-8">Admin Panel</h2>
+
+    <nav class="space-y-3">
+      <a href="/admin/add-task"
+   class="block px-4 py-2 rounded-lg hover:bg-gray-100">
+   📝 Add Task
+</a>
+
+<a href="/admin/tasks"
+   class="block px-4 py-2 rounded-lg hover:bg-gray-100">
+   📋 Manage Tasks
+</a>
+<a href="/admin/submissions"
+   class="block px-4 py-2 rounded-lg hover:bg-gray-100">
+   📥 Submissions
+</a>
+ <a href="/blogs/admin" class="hover:text-blue-400">
+    Manage Blogs
+</a>
+
+      <a href="/admin/dashboard"
+         class="block px-4 py-2 rounded-lg bg-purple-100 text-purple-700 font-medium">
+        📊 Dashboard
+      </a>
+
+      <a href="/admin/add-course"
+         class="block px-4 py-2 rounded-lg hover:bg-gray-100">
+        ➕ Add Course
+      </a>
+    </nav>
+  </aside>
+
+  <!-- 🔥 Main -->
+  <main class="flex-1 p-6">
+
+    <!-- Header -->
+    <div class="flex justify-between items-center mb-6">
+      <h1 class="text-3xl font-bold text-gray-800">
+        📚 Manage Courses
+      </h1>
+
+      <a href="/admin/add-course"
+         class="bg-purple-600 hover:bg-purple-700 text-white px-5 py-2 rounded-lg shadow">
+        + Add Course
+      </a>
+    </div>
+
+    <!-- ================= COURSES TABLE ================= -->
+    <div class="bg-white rounded-xl shadow overflow-hidden mb-10">
+
+      <table class="w-full text-left">
+
+        <thead class="bg-gray-100 text-gray-600 text-sm uppercase">
+          <tr>
+            <th class="p-4">Course</th>
+            <th class="p-4">Price</th>
+            <th class="p-4 text-center">Actions</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <% if (!courses || courses.length === 0) { %>
+            <tr>
+              <td colspan="3" class="text-center p-6 text-gray-500">
+                No courses found
+              </td>
+            </tr>
+          <% } %>
+
+          <% courses.forEach(course => { %>
+
+            <tr class="border-t hover:bg-gray-50 transition">
+
+              <td class="p-4 flex items-center gap-4">
+
+                <% if (course.thumbnail) { %>
+                  <img src="<%= course.thumbnail || '/default.jpg' %>"
+                       class="w-16 h-12 object-cover rounded">
+                <% } else { %>
+                  <div class="w-16 h-12 bg-purple-500 text-white flex items-center justify-center rounded">
+                    <%= course.title.charAt(0).toUpperCase() %>
+                  </div>
+                <% } %>
+
+                <div>
+                  <p class="font-semibold"><%= course.title %></p>
+                  <p class="text-sm text-gray-500">
+                    <%= course.category || "General" %>
+                  </p>
+                </div>
+
+              </td>
+
+              <td class="p-4 font-medium">
+                ₹<%= course.price %>
+              </td>
+
+              <td class="p-4 text-center">
+
+                <div class="flex justify-center gap-2 flex-wrap">
+
+  <a href="/admin/add-task?course=<%= course._id %>"
+     class="px-3 py-1 bg-green-500 text-white rounded text-sm">
+     + Task
+  </a>
+
+  <a href="/admin/edit/<%= course._id %>"
+     class="px-3 py-1 bg-blue-500 text-white rounded text-sm">
+     Edit
+  </a>
+
+  <form action="/admin/delete/<%= course._id %>" method="POST"
+        onsubmit="return confirm('Delete this course?')">
+
+    <button type="submit"
+            class="px-3 py-1 bg-red-500 text-white rounded text-sm">
+      Delete
+    </button>
+
+  </form>
+
+</div>
+
+              </td>
+
+            </tr>
+
+          <% }) %>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <!-- ================= CREATE LIVE SESSION ================= -->
+    <div class="bg-white p-6 rounded-xl shadow max-w-xl">
+
+      <h2 class="text-xl font-bold mb-4">🔴 Create Live Session</h2>
+
+ <form action="/admin/live-session" method="POST" class="space-y-4">
+
+  <input name="title" placeholder="Session Title"
+         class="w-full border p-2 rounded" required />
+
+  <textarea name="description"
+            class="w-full border p-2 rounded"></textarea>
+
+  <!-- ❌ REMOVED manual link -->
+
+  <select name="course" class="w-full border p-2 rounded" required>
+  <option value="">Select Course</option>
+  <% courses.forEach(c => { %>
+    <option value="<%= c._id %>"
+      <%= selectedCourse == c._id.toString() ? "selected" : "" %>>
+      <%= c.title %>
+    </option>
+  <% }) %>
+</select>
+
+  <!-- ✅ FIXED -->
+  <input type="datetime-local" name="date"
+         class="w-full border p-2 rounded" required />
+
+  <input name="duration" type="number"
+         placeholder="Duration (minutes)"
+         class="w-full border p-2 rounded" />
+
+  <button class="w-full bg-red-500 text-white py-2 rounded">
+    Create Session
+  </button>
+
+</form>
+
+    </div>
+
+  </main>
+
+</div>
+
+</body>
+</html>

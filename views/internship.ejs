@@ -1,0 +1,278 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" />
+<%- include("partial/nav") %>
+
+<!-- ================= HERO ================= -->
+<section class="bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-700 text-white p-10 rounded-b-3xl">
+
+  <div class="max-w-7xl mx-auto">
+
+    <p class="bg-white/20 inline-block px-4 py-1 rounded-full text-sm mb-4">
+      Internship Dashboard
+    </p>
+
+    <h1 class="text-4xl md:text-5xl font-bold mb-4">
+      Welcome back, <%= user?.name || "Student" %> 👋
+    </h1>
+
+    <p class="text-blue-100 max-w-2xl">
+      You're making great progress. Track your journey, submit tasks, and earn your certificate.
+    </p>
+
+  </div>
+
+</section>
+
+
+<!-- ================= GUIDELINES ================= -->
+<section class="bg-[#0f172a] text-white p-8 mt-6 rounded-xl max-w-7xl mx-auto">
+
+  <h2 class="text-xl font-semibold mb-3">⚠ Internship Guidelines & Policies</h2>
+
+  <p class="text-sm text-gray-400 mb-6">
+    <span class="text-blue-400">Industry-Level Projects</span> |
+    <span class="text-green-400">MSME-Certified</span> |
+    <span class="text-yellow-400">Trusted by 40000+ Learners</span>
+  </p>
+
+  <div class="space-y-4">
+    <details class="bg-gray-900 p-4 rounded-lg">
+      <summary class="cursor-pointer font-medium">💰 Stipend Structure</summary>
+      <p class="text-gray-400 mt-2">Performance-based rewards up to ₹3,000</p>
+      
+    </details>
+
+    <details class="bg-gray-900 p-4 rounded-lg">
+      <summary class="cursor-pointer font-medium">📘 Program Overview</summary>
+      <div class="py-4">
+        <span>Task Implementation</span>
+        <p class="text-gray-400 mt-2">Implement all tasks as extra features in your training project. Focus on quality, originality, and best practices.</p>
+      </div>
+      <div class="py-4"> 
+        <span>Certificate Policy</span>
+        <p  class="text-gray-400 ">
+         <ul>
+          <li class="text-gray-400 ">
+             * Every intern gets a certificate</li>
+          <li class="text-gray-400 ">* No minimum tasks required</li>
+          <li class="text-gray-400 ">* LinkedIn & résumé ready</li>
+         </ul>
+        </p>
+         
+      </div>
+     
+    </details>
+
+    <details class="bg-gray-900 p-4 rounded-lg">
+      <summary class="cursor-pointer font-medium">🏆 Evaluation Criteria</summary>
+      <p class="text-gray-400 mt-2">Your performance is judged on project completion & quality</p>
+    </details>
+  </div>
+
+</section>
+
+
+<!-- ================= DASHBOARD ================= -->
+<section class="max-w-7xl mx-auto mt-10 px-4">
+
+  <!-- Tabs -->
+  <div class="flex justify-between bg-gray-900 text-white p-2 rounded-full mb-8">
+    <button class="flex-1 py-2 rounded-full bg-blue-600">Dashboard</button>
+    <button class="flex-1 py-2 rounded-full">Submissions</button>
+    <button class="flex-1 py-2 rounded-full">Progress</button>
+  </div>
+
+  <!-- ================= STATS ================= -->
+  <div class="grid md:grid-cols-4 gap-6 mb-10">
+
+    <div class="bg-gray-900 text-white p-6 rounded-xl">
+      <p class="text-sm text-gray-400">Active Courses</p>
+      <h2 class="text-3xl font-bold"><%= courses?.length || 0 %></h2>
+    </div>
+
+    <div class="bg-gray-900 text-white p-6 rounded-xl">
+      <p class="text-sm text-gray-400">Total Tasks</p>
+      <h2 class="text-3xl font-bold"><%= tasks?.length || 0 %></h2>
+    </div>
+
+    <div class="bg-gray-900 text-white p-6 rounded-xl">
+      <p class="text-sm text-gray-400">Completed</p>
+      <h2 class="text-3xl font-bold"><%= completed %></h2>
+    </div>
+
+    <div class="bg-gray-900 text-white p-6 rounded-xl">
+      <p class="text-sm text-gray-400">Submissions</p>
+      <h2 class="text-3xl font-bold"><%= submissions.length %></h2>
+    </div>
+
+  </div>
+
+
+  <!-- ================= COURSES ================= -->
+  <% courses.forEach(course => { 
+
+   const courseTasks = tasks.filter(t => 
+  t.course && 
+  course && 
+  t.course._id && 
+  course._id && 
+  t.course._id.toString() === course._id.toString()
+);
+
+    const courseSubmissions = submissions.filter(s => 
+      courseTasks.some(t => t._id.toString() === s.task.toString())
+    );
+
+    const completedTasks = courseSubmissions.filter(s => s.status === "approved").length;
+
+    const progress = courseTasks.length 
+  ? Math.round((completedTasks / courseTasks.length) * 100)
+  : 0;
+
+  %>
+
+  <div class="bg-gradient-to-r from-indigo-900 to-blue-900 text-white p-6 rounded-xl mb-10">
+
+    <!-- Course Header -->
+    <div class="flex justify-between items-center mb-4">
+      <h2 class="text-xl font-semibold">
+        <%= course.title %>
+      </h2>
+      <span class="bg-blue-600 px-3 py-1 rounded-full text-sm">
+       <%
+const prog = progresses.find(p =>
+  p.course.toString() === course._id.toString()
+);
+%>
+
+<span class="bg-blue-600 px-3 py-1 rounded-full text-sm">
+  <%= prog ? prog.overallPercentage : 0 %>%
+</span>
+      </span>
+    </div>
+
+    <p class="text-gray-300 mb-6">
+      <%= course.description || "Build real-world applications and gain industry experience." %>
+    </p>
+
+    <!-- Progress Bar -->
+    <div class="w-full bg-gray-700 rounded-full h-2 mb-6">
+      <div class="bg-blue-500 h-2 rounded-full" style="width:<%= progress %>%"></div>
+    </div>
+
+    <!-- ================= TASKS ================= -->
+   <!-- ================= TASKS ================= -->
+<% courseTasks.forEach(task => { 
+    const sub = submissions.find(s => 
+        s.task && s.task._id.toString() === task._id.toString()
+    );
+%>
+
+<div class="bg-gray-800 rounded-2xl p-6 mb-6 border border-gray-700 hover:border-purple-500 transition-all duration-300">
+
+    <!-- Task Header -->
+    <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
+
+        <div>
+            <h3 class="text-2xl font-bold text-white mb-2">
+                <%= task.title %>
+            </h3>
+
+            <p class="text-gray-400 leading-relaxed">
+                <%= task.description %>
+            </p>
+        </div>
+
+        <!-- Status Badge -->
+        <% if (sub) { %>
+            <span class="px-4 py-2 rounded-full text-sm font-bold w-fit
+                <%= sub.status === 'approved'
+                    ? 'bg-green-500/20 text-green-400'
+                    : sub.status === 'rejected'
+                    ? 'bg-red-500/20 text-red-400'
+                    : 'bg-yellow-500/20 text-yellow-400' %>">
+                <%= sub.status.toUpperCase() %>
+            </span>
+        <% } else { %>
+            <span class="px-4 py-2 rounded-full text-sm font-bold bg-blue-500/20 text-blue-400 w-fit">
+                NOT SUBMITTED
+            </span>
+        <% } %>
+    </div>
+
+    <!-- Meta Information -->
+    <div class="flex flex-wrap items-center gap-6 mt-5 text-sm text-gray-400">
+        <span>
+            📅 <%= task.dueDate ? new Date(task.dueDate).toLocaleDateString() : "No Deadline" %>
+        </span>
+
+        <% if (sub) { %>
+            <span class="text-green-400">
+                ✅ Submitted Successfully
+            </span>
+        <% } else { %>
+            <span class="text-yellow-400">
+                ⏳ Submission Pending
+            </span>
+        <% } %>
+    </div>
+
+    <!-- Detailed Submission Status -->
+    <% if (sub) { %>
+        <div class="mt-6 rounded-2xl border p-5
+            <%= sub.status === 'approved'
+                ? 'bg-green-500/10 border-green-500/30'
+                : sub.status === 'rejected'
+                ? 'bg-red-500/10 border-red-500/30'
+                : 'bg-yellow-500/10 border-yellow-500/30' %>">
+
+            <h4 class="text-lg font-bold mb-2">
+                <% if (sub.status === 'approved') { %>
+                    🎉 Project Approved
+                <% } else if (sub.status === 'rejected') { %>
+                    ❌ Project Rejected
+                <% } else { %>
+                    ⏳ Under Review
+                <% } %>
+            </h4>
+
+            <% if (sub.status === 'approved') { %>
+                <p class="text-gray-300">
+                    Excellent work! Your submission has been approved.
+                </p>
+            <% } else if (sub.status === 'rejected') { %>
+                <p class="text-gray-300">
+                    Your project needs improvement. Please update and resubmit.
+                </p>
+
+                <a href="/submit-task/<%= task._id %>"
+                   class="inline-block mt-4 bg-red-600 hover:bg-red-700 px-5 py-3 rounded-xl font-semibold transition">
+                    Resubmit Project
+                </a>
+            <% } else { %>
+                <p class="text-gray-300">
+                    Your submission is currently under review by our experts.
+                </p>
+            <% } %>
+        </div>
+    <% } %>
+
+    <!-- Submit Button -->
+    <% if (!sub) { %>
+        <div class="mt-6">
+            <a href="/submit-task/<%= task._id %>"
+               class="inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 px-6 py-3 rounded-xl font-bold transition-all duration-300 shadow-lg">
+                🚀 Submit Project
+            </a>
+        </div>
+    <% } %>
+
+</div>
+
+<% }) %>
+  </div>
+
+  <% }) %>
+
+</section>
+
+<%- include("partial/footer") %>

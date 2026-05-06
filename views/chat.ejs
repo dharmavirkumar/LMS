@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gyansify AI Mentor</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/dompurify@3.0.6/dist/purify.min.js"></script>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/github-dark.min.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
+
+<style>
+textarea { font-size: 16px; }
+</style>
+</head>
+
+<body class="bg-gradient-to-br from-slate-950 via-blue-950 to-black text-white h-screen overflow-hidden">
+
+<div class="flex h-screen">
+
+<!-- Sidebar -->
+<aside class="hidden md:flex flex-col w-80 bg-black/30 backdrop-blur-2xl border-r border-white/10">
+  <div class="p-6 border-b border-white/10">
+    <h1 class="text-3xl font-extrabold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
+      Gyansify AI
+    </h1>
+    <p class="text-gray-400 text-sm mt-2">Your AI Learning Mentor</p>
+  </div>
+
+  <div class="p-4">
+    <button id="newChatBtn"
+      class="w-full py-4 rounded-2xl bg-gradient-to-r from-blue-600 to-purple-600 font-bold hover:scale-105 transition shadow-xl">
+      ✨ New Chat
+    </button>
+  </div>
+
+  <div class="flex-1 overflow-y-auto px-4 pb-6 space-y-3" id="historyBox"></div>
+</aside>
+
+<!-- Main -->
+<main class="flex-1 flex flex-col">
+
+<!-- Header -->
+<header class="h-20 flex items-center justify-between px-6 border-b border-white/10 bg-black/20">
+  <h1 class="text-2xl md:text-3xl font-bold">🤖 Gyansify AI</h1>
+</header>
+
+<!-- Chat -->
+<section id="chatBox" class="flex-1 overflow-y-auto px-4 md:px-10 py-8 space-y-6"></section>
+
+<!-- Input -->
+<footer class="p-4 md:p-6 border-t border-white/10 bg-black/20">
+<form id="chatForm" class="max-w-5xl mx-auto">
+
+<div class="relative">
+
+<textarea id="messageInput"
+rows="1"
+placeholder="Message Gyansify AI... (Shift + Enter = new line)"
+class="w-full resize-none rounded-3xl bg-slate-800 border border-slate-700 px-6 py-5 pr-20 text-white outline-none focus:border-blue-500"
+required></textarea>
+
+<button id="sendBtn"
+class="absolute right-4 bottom-4 w-12 h-12 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 hover:scale-110 flex items-center justify-center">
+➤
+</button>
+
+</div>
+
+</form>
+</footer>
+
+</main>
+</div>
+
+<script>
+const form = document.getElementById("chatForm");
+const input = document.getElementById("messageInput");
+const chatBox = document.getElementById("chatBox");
+const sendBtn = document.getElementById("sendBtn");
+const newChatBtn = document.getElementById("newChatBtn");
+
+// Load history
+function loadChat() {
+  const saved = localStorage.getItem("chatHistory");
+  if (saved) chatBox.innerHTML = saved;
+}
+loadChat();
+
+// Save history
+function saveChat() {
+  localStorage.setItem("chatHistory", chatBox.innerHTML);
+}
+
+// Append message
+function appendMessage(text, role, provider="") {
+  const wrapper = document.createElement("div");
+  wrapper.className = role === "user" ? "flex justify-end" : "flex justify-start";
+
+  const bubble = document.createElement("div");
+
+  if (role === "user") {
+    bubble.className = "max-w-3xl bg-gradient-to-r from-blue-600 to-purple-600 px-6 py-4 rounded-3xl";
+    bubble.textContent = text;
+  } else {
+    bubble.className = "max-w-4xl bg-white/5 border border-white/10 px-6 py-5 rounded-3xl prose prose-invert";
+    bubble.innerHTML = DOMPurify.sanitize(marked.parse(text));
+
+    // Highlight code
+    bubble.querySelectorAll("pre code").forEach(block => {
+      hljs.highlightElement(block);
+    });
+
+    // Copy button
+    bubble.querySelectorAll("pre").forEach(block => {
+      const btn = document.createElement("button");
+      btn.innerText = "Copy";
+      btn.className = "text-xs bg-gray-700 px-2 py-1 rounded mb-2";
+
+      btn.onclick = () => navigator.clipboard.writeText(block.innerText);
+      block.prepend(btn);
+    });
+
+    // Provider tag
+    if(provider){
+      const tag = document.createElement("div");
+      tag.className = "text-xs text-gray-400 mt-3";
+      tag.textContent = "🧠 " + provider;
+      bubble.appendChild(tag);
+    }
+  }
+
+  wrapper.appendChild(bubble);
+  chatBox.appendChild(wrapper);
+
+  chatBox.scrollTo({ top: chatBox.scrollHeight, behavior: "smooth" });
+  saveChat();
+}
+
+// Typing animation
+function typingUI(){
+  const el = document.createElement("div");
+  el.className = "flex justify-start";
+  el.id = "typing";
+
+  el.innerHTML = `
+  <div class="bg-white/5 px-6 py-4 rounded-3xl">
+    <div class="flex gap-2">
+      <span class="w-2 h-2 bg-blue-400 rounded-full animate-bounce"></span>
+      <span class="w-2 h-2 bg-purple-400 rounded-full animate-bounce delay-150"></span>
+      <span class="w-2 h-2 bg-pink-400 rounded-full animate-bounce delay-300"></span>
+    </div>
+  </div>`;
+
+  chatBox.appendChild(el);
+  return el;
+}
+
+// Send message
+form.addEventListener("submit", async (e)=>{
+  e.preventDefault();
+
+  const message = input.value.trim();
+  if(!message) return;
+
+  appendMessage(message,"user");
+  input.value = "";
+  input.style.height = "auto";
+
+  sendBtn.disabled = true;
+
+  const typing = typingUI();
+
+  try{
+    const res = await fetch("/ai/chat",{
+      method:"POST",
+      headers:{ "Content-Type":"application/json" },
+      body: JSON.stringify({message})
+    });
+
+    const data = await res.json();
+    typing.remove();
+
+    if(data.success){
+      appendMessage(data.reply,"assistant",data.provider);
+    }else{
+      appendMessage("⚠️ AI busy hai, try again.","assistant");
+    }
+
+  }catch{
+    typing.remove();
+    appendMessage("❌ Server error","assistant");
+  }
+
+  sendBtn.disabled = false;
+});
+
+// Auto resize
+input.addEventListener("input", ()=>{
+  input.style.height = "auto";
+  input.style.height = input.scrollHeight + "px";
+});
+
+// Enter send
+input.addEventListener("keydown",(e)=>{
+  if(e.key==="Enter" && !e.shiftKey){
+    e.preventDefault();
+    form.requestSubmit();
+  }
+});
+
+// New chat
+newChatBtn.addEventListener("click", ()=>{
+  chatBox.innerHTML = "";
+  localStorage.removeItem("chatHistory");
+});
+</script>
+
+</body>
+</html>

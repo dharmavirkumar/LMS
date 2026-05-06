@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title><%= course.title %></title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+</head>
+
+<body class="bg-gray-100 text-gray-800">
+
+<!-- ================= HERO ================= -->
+<section class="bg-gradient-to-r from-purple-700 to-indigo-900 text-white py-16 px-6">
+  <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-10 items-center">
+
+    <div>
+      <h1 class="text-4xl md:text-5xl font-bold mb-4">
+        <%= course.title %>
+      </h1>
+
+      <p class="text-gray-200 mb-4">
+        <%= course.description %>
+      </p>
+
+      <p class="text-sm text-gray-300">
+        ⭐ 4.8 • 🎓 10,000+ Students • 🏆 Certificate
+      </p>
+    </div>
+
+  <img 
+  src="<%= course.thumbnail || '/default.jpg' %>" 
+  alt="course image"
+  class="w-full rounded-xl shadow-lg object-cover"
+/>
+  </div>
+</section>
+
+<!-- ================= MAIN ================= -->
+<section class="py-12 px-6">
+  <div class="max-w-7xl mx-auto grid md:grid-cols-3 gap-8">
+
+    <!-- LEFT CONTENT -->
+    <div class="md:col-span-2 space-y-8">
+
+      <!-- Overview -->
+      <% if (course.overview) { %>
+      <div class="bg-white p-6 rounded-xl shadow">
+        <h2 class="text-2xl font-bold mb-3">Project Overview</h2>
+        <p><%= course.overview %></p>
+      </div>
+      <% } %>
+
+      <!-- Content -->
+      <% if (course.content && course.content.length) { %>
+      <div class="bg-white p-6 rounded-xl shadow">
+        <h2 class="text-2xl font-bold mb-3">Project Module</h2>
+
+        <% course.content.forEach(item => { %>
+          <div class="border p-3 rounded mb-2"><%= item %></div>
+        <% }) %>
+      </div>
+      <% } %>
+
+      <!-- Objectives -->
+      <% if (course.objectives && course.objectives.length) { %>
+      <div class="bg-white p-6 rounded-xl shadow">
+        <h2 class="text-2xl font-bold mb-3">Learning Objectives</h2>
+
+        <ul class="space-y-2">
+          <% course.objectives.forEach(obj => { %>
+            <li>✔ <%= obj %></li>
+          <% }) %>
+        </ul>
+      </div>
+      <% } %>
+
+      <!-- Features -->
+      <% if (course.features && course.features.length) { %>
+      <div class="bg-white p-6 rounded-xl shadow">
+        <h2 class="text-2xl font-bold mb-3">Features & Benefits</h2>
+
+        <ul class="space-y-2">
+          <% course.features.forEach(f => { %>
+            <li>🚀 <%= f %></li>
+          <% }) %>
+        </ul>
+      </div>
+      <% } %>
+
+      <!-- Career Benefits -->
+      <% if (course.careerBenefits && course.careerBenefits.length) { %>
+      <div class="bg-white p-6 rounded-xl shadow">
+        <h2 class="text-2xl font-bold mb-4">Accelerate Your Career Growth</h2>
+
+        <div class="grid md:grid-cols-2 gap-4">
+          <% course.careerBenefits.forEach(cb => { %>
+            <div class="border p-4 rounded-lg">
+              <h3 class="font-bold text-lg"><%= cb.title %></h3>
+              <p class="text-gray-600 text-sm"><%= cb.description %></p>
+            </div>
+          <% }) %>
+        </div>
+      </div>
+      <% } %>
+
+      <!-- Certifications -->
+      <% if (course.certifications && course.certifications.length) { %>
+      <div class="bg-white p-6 rounded-xl shadow">
+        <h2 class="text-2xl font-bold mb-3">Certifications</h2>
+
+        <ul class="space-y-2">
+          <% course.certifications.forEach(cert => { %>
+            <li>🏆 <%= cert %></li>
+          <% }) %>
+        </ul>
+      </div>
+      <% } %>
+
+    </div>
+
+    <!-- RIGHT PAYMENT -->
+    <div class="bg-white p-6 rounded-xl shadow sticky top-10 h-fit">
+
+      <h2 class="text-3xl font-bold mb-2">
+        ₹<%= course.price %>
+      </h2>
+
+      <p class="text-green-600 mb-4">🔥 Limited Offer</p>
+
+     <% if (isEnrolled) { %>
+
+  <!-- ✅ Already Purchased -->
+  <button class="w-full bg-green-500 text-white py-3 rounded-lg cursor-not-allowed">
+    ✅ Already Purchased
+  </button>
+
+  <a href="/course/player/<%= course._id %>"
+     class="block mt-3 text-center bg-purple-600 text-white py-2 rounded-lg">
+    ▶ Start Learning
+  </a>
+
+<% } else if (!user) { %>
+
+  <!-- ❌ Guest User -->
+  <button onclick="redirectLogin()"
+    class="w-full bg-gray-400 text-white py-3 rounded-lg cursor-not-allowed">
+    🔒 Login to Buy
+  </button>
+
+<% } else { %>
+
+  <!-- ✅ Logged-in user -->
+  <button id="buyBtn"
+    onclick="buyCourse('<%= course._id %>', <%= course.price %>)"
+    class="w-full bg-purple-600 hover:bg-purple-700 text-white py-3 rounded-lg">
+    Buy Now
+  </button>
+
+<% } %>
+
+      <div class="mt-6 text-sm text-gray-600 space-y-2">
+        <p>✔ Secure Payment</p>
+        <p>✔ Lifetime Access</p>
+        <p>✔ Certificate Included</p>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- ================= SCRIPT ================= -->
+<script>
+async function buyCourse(courseId, price) {
+
+  const btn = document.getElementById("buyBtn");
+
+  try {
+    btn.innerText = "Processing...";
+    btn.disabled = true;
+
+    const orderRes = await fetch("/payment/create-order", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+      body: JSON.stringify({ amount: price })
+    });
+
+    const data = await orderRes.json();
+
+    const options = {
+      key: "rzp_test_SZWDMTwNZYsa0a",
+      amount: data.amount,
+      currency: "INR",
+      name: "My LMS",
+      description: "Course Purchase",
+      order_id: data.id,
+
+      handler: async function (response) {
+
+        const verifyRes = await fetch("/payment/verify", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          credentials: "include",
+          body: JSON.stringify({
+            ...response,
+            courseId
+          })
+        });
+
+        const result = await verifyRes.json();
+
+        if (result.success) {
+          alert("✅ Payment Successful!");
+          window.location.href = "/dashboard";
+        } else {
+          alert("❌ Payment Failed");
+        }
+      }
+    };
+
+    const rzp = new Razorpay(options);
+    rzp.open();
+
+  } catch (err) {
+    alert("⚠ Error occurred");
+  } finally {
+    btn.innerText = "Buy Now";
+    btn.disabled = false;
+  }
+}
+</script>
+<script>
+function redirectLogin() {
+  alert("⚠ Please login first");
+  window.location.href = "/login";
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,330 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css"/>
+
+<style>
+.input{
+  width:100%;
+  padding:12px;
+  border:1px solid #ddd;
+  border-radius:10px;
+}
+.module{
+  background:#f9fafb;
+}
+.lesson{
+  background:#fff;
+}
+</style>
+
+<form
+  action="/admin/edit/<%= course._id %>"
+  method="POST"
+  enctype="multipart/form-data"
+  class="max-w-5xl mx-auto p-8 bg-white shadow-2xl rounded-2xl space-y-6"
+>
+
+<h2 class="text-3xl font-bold text-center text-purple-600">
+  Edit Course
+</h2>
+
+<!-- BASIC -->
+<input
+  name="title"
+  value="<%= course.title %>"
+  class="input"
+  placeholder="Course Title"
+/>
+
+<textarea
+  name="description"
+  class="input"
+  placeholder="Description"
+><%= course.description %></textarea>
+
+<input
+  name="price"
+  value="<%= course.price %>"
+  class="input"
+  placeholder="Price"
+/>
+
+<input
+  name="category"
+  value="<%= course.category %>"
+  class="input"
+  placeholder="Category"
+/>
+
+<img src="<%= course.thumbnail %>" class="w-40 rounded">
+
+<input type="file" name="thumbnail" class="input">
+
+<textarea
+  name="overview"
+  class="input"
+  placeholder="Overview"
+><%= course.overview %></textarea>
+
+<!-- MODULES -->
+<div id="modules">
+
+<% course.modules.forEach((mod)=>{ %>
+
+<div
+  class="module p-4 border rounded mb-5"
+  data-id="<%= mod._id %>"
+>
+
+  <input
+    type="hidden"
+    name="moduleId[]"
+    value="<%= mod._id %>"
+  >
+
+  <input
+    name="moduleTitle[]"
+    value="<%= mod.title %>"
+    class="input mb-3"
+    placeholder="Module Title"
+  >
+
+  <div class="lessons">
+
+    <% mod.lessons.forEach((les)=>{ %>
+
+    <%
+      const fileKey = "videos_" + les._id;
+    %>
+
+    <div class="lesson border p-4 rounded mb-4">
+
+      <input
+        type="hidden"
+        name="lessonId[]"
+        value="<%= les._id %>"
+      >
+
+      <input
+        type="hidden"
+        name="lessonModuleId[]"
+        value="<%= mod._id %>"
+      >
+
+      <input
+        type="hidden"
+        name="lessonFileKey[]"
+        value="<%= fileKey %>"
+      >
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+
+        <input
+          name="lessonTitle[]"
+          value="<%= les.title %>"
+          class="input"
+          placeholder="Lesson Title"
+        >
+
+        <input
+          type="file"
+          name="<%= fileKey %>"
+          class="input"
+        >
+
+      </div>
+
+      <!-- Existing Videos -->
+      <div class="flex flex-wrap gap-3 mt-3">
+
+        <% if (les.videos && les.videos.length) { %>
+
+          <% les.videos.forEach((vid)=>{ %>
+
+            <video
+              src="<%= vid %>"
+              width="180"
+              controls
+              class="rounded border"
+            ></video>
+
+          <% }) %>
+
+        <% } %>
+
+      </div>
+
+      <button
+        type="button"
+        onclick="this.parentElement.remove()"
+        class="bg-red-500 text-white px-4 py-2 rounded mt-3"
+      >
+        Delete Lesson
+      </button>
+
+    </div>
+
+    <% }) %>
+
+  </div>
+
+  <div class="flex gap-3 mt-4">
+
+    <button
+      type="button"
+      onclick="addLesson(this)"
+      class="bg-gray-200 px-4 py-2 rounded"
+    >
+      + Lesson
+    </button>
+
+    <button
+      type="button"
+      onclick="this.parentElement.remove()"
+      class="bg-red-600 text-white px-4 py-2 rounded"
+    >
+      Delete Module
+    </button>
+
+  </div>
+
+</div>
+
+<% }) %>
+
+</div>
+
+<button
+  type="button"
+  onclick="addModule()"
+  class="bg-gray-300 px-4 py-2 rounded"
+>
+  + Module
+</button>
+
+<button
+  class="w-full bg-purple-600 text-white py-3 rounded text-lg font-bold"
+>
+  Update Course
+</button>
+
+</form>
+
+<script>
+
+// ================= ADD MODULE =================
+
+function addModule() {
+
+  const moduleId = "new-" + Date.now();
+
+  const html = `
+
+  <div class="module p-4 border rounded mb-5 bg-gray-50" data-id="${moduleId}">
+
+    <input
+      type="hidden"
+      name="moduleId[]"
+      value="${moduleId}"
+    >
+
+    <input
+      name="moduleTitle[]"
+      placeholder="Module Title"
+      class="input mb-3"
+    >
+
+    <div class="lessons"></div>
+
+    <div class="flex gap-3 mt-3">
+
+      <button
+        type="button"
+        onclick="addLesson(this)"
+        class="bg-gray-200 px-4 py-2 rounded"
+      >
+        + Lesson
+      </button>
+
+      <button
+        type="button"
+        onclick="this.parentElement.parentElement.remove()"
+        class="bg-red-600 text-white px-4 py-2 rounded"
+      >
+        Delete Module
+      </button>
+
+    </div>
+
+  </div>
+  `;
+
+  document
+    .getElementById("modules")
+    .insertAdjacentHTML("beforeend", html);
+}
+
+// ================= ADD LESSON =================
+
+function addLesson(btn) {
+
+  const module = btn.closest(".module");
+  const moduleId = module.dataset.id;
+
+  const unique = Date.now();
+
+  const fileKey = `videos_new_${unique}`;
+
+  const html = `
+
+  <div class="lesson border p-4 rounded mb-4 bg-white">
+
+    <input
+      type="hidden"
+      name="lessonId[]"
+      value="new"
+    >
+
+    <input
+      type="hidden"
+      name="lessonModuleId[]"
+      value="${moduleId}"
+    >
+
+    <input
+      type="hidden"
+      name="lessonFileKey[]"
+      value="${fileKey}"
+    >
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+
+      <input
+        name="lessonTitle[]"
+        placeholder="Lesson Title"
+        class="input"
+      >
+
+      <input
+        type="file"
+        name="${fileKey}"
+        class="input"
+      >
+
+    </div>
+
+    <button
+      type="button"
+      onclick="this.parentElement.remove()"
+      class="bg-red-500 text-white px-4 py-2 rounded mt-3"
+    >
+      Delete Lesson
+    </button>
+
+  </div>
+  `;
+
+  module
+    .querySelector(".lessons")
+    .insertAdjacentHTML("beforeend", html);
+}
+
+</script>

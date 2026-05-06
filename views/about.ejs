@@ -1,0 +1,212 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<%- include("partial/nav") %>
+
+<section class="relative min-h-screen overflow-hidden text-white bg-gradient-to-br from-black via-blue-950 to-black">
+
+  <!-- Background Effects -->
+  <div class="absolute inset-0">
+    <div class="absolute top-0 left-0 w-96 h-96 bg-indigo-600/20 rounded-full blur-3xl"></div>
+    <div class="absolute bottom-0 right-0 w-96 h-96 bg-pink-600/20 rounded-full blur-3xl"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(99,102,241,0.15),_transparent_35%),radial-gradient(circle_at_bottom_right,_rgba(236,72,153,0.15),_transparent_35%)]"></div>
+  </div>
+
+  <!-- Hero Section -->
+  <section class="relative py-24 px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto text-center">
+
+      <span class="inline-flex items-center px-6 py-2 rounded-full bg-indigo-500/20 border border-indigo-400/30 text-indigo-200 text-sm font-semibold mb-8">
+        🚀 Empowering Future Developers
+      </span>
+
+      <h1 class="text-5xl md:text-7xl font-black leading-tight">
+        About
+        <span class="bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+          Our Platform
+        </span>
+      </h1>
+
+      <p class="mt-8 text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed">
+        We are on a mission to transform passionate learners into industry-ready developers
+        through practical education, real-world projects, and expert mentorship.
+      </p>
+    </div>
+  </section>
+
+  <!-- Story Section -->
+  <section class="relative py-20 px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
+
+      <div>
+        <span class="text-indigo-400 font-bold uppercase tracking-widest">
+          Our Story
+        </span>
+
+        <h2 class="text-4xl md:text-5xl font-black mt-4 mb-8">
+          Building Skills That Matter
+        </h2>
+
+        <p class="text-slate-300 text-lg leading-relaxed mb-6">
+          Our learning platform was created with one simple vision — to bridge the gap
+          between theoretical education and real-world industry requirements.
+        </p>
+
+        <p class="text-slate-300 text-lg leading-relaxed mb-8">
+          We believe that every student deserves access to premium-quality education,
+          practical projects, and career-focused mentorship that truly prepares them
+          for success in the modern technology landscape.
+        </p>
+
+        <div class="grid grid-cols-2 gap-6">
+          <div class="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-6">
+            <h3 class="text-4xl font-black text-indigo-400">10K+</h3>
+            <p class="text-slate-400 mt-2">Students Enrolled</p>
+          </div>
+
+          <div class="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-6">
+            <h3 class="text-4xl font-black text-pink-400">500+</h3>
+            <p class="text-slate-400 mt-2">Projects Built</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="relative">
+        <div class="bg-gradient-to-br from-indigo-600 to-purple-700 rounded-3xl p-1 shadow-2xl">
+          <img
+            src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3"
+            alt="Students Learning"
+            class="rounded-3xl object-cover w-full h-[500px]"
+          >
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Values Section -->
+  <section class="relative py-20 px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto text-center">
+
+      <h2 class="text-4xl md:text-6xl font-black mb-6">
+        Our Core Values
+      </h2>
+
+      <p class="text-slate-400 text-xl max-w-3xl mx-auto mb-16">
+        Everything we do is guided by these principles.
+      </p>
+
+      <div class="grid md:grid-cols-3 gap-8">
+
+        <div class="group bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-10 hover:scale-105 transition duration-500">
+          <div class="text-6xl mb-6">🎯</div>
+          <h3 class="text-2xl font-bold mb-4">Excellence</h3>
+          <p class="text-slate-400 leading-relaxed">
+            Delivering world-class educational experiences with uncompromising quality.
+          </p>
+        </div>
+
+        <div class="group bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-10 hover:scale-105 transition duration-500">
+          <div class="text-6xl mb-6">💡</div>
+          <h3 class="text-2xl font-bold mb-4">Innovation</h3>
+          <p class="text-slate-400 leading-relaxed">
+            Continuously evolving with modern technologies and industry trends.
+          </p>
+        </div>
+
+        <div class="group bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-10 hover:scale-105 transition duration-500">
+          <div class="text-6xl mb-6">🤝</div>
+          <h3 class="text-2xl font-bold mb-4">Community</h3>
+          <p class="text-slate-400 leading-relaxed">
+            Building a supportive ecosystem where learners grow together.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Team Section -->
+  <section class="relative py-20 px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto text-center">
+
+      <h2 class="text-4xl md:text-6xl font-black mb-6">
+        Meet Our Team
+      </h2>
+
+      <p class="text-slate-400 text-xl max-w-3xl mx-auto mb-16">
+        Passionate educators, developers, and mentors dedicated to your success.
+      </p>
+
+      <div class="grid md:grid-cols-3 gap-10">
+
+        <div class="bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-8">
+          <img
+            src="https://ui-avatars.com/api/?name=Founder&background=4f46e5&color=fff&size=300"
+            class="w-32 h-32 rounded-full mx-auto mb-6"
+            alt="Founder"
+          >
+          <h3 class="text-2xl font-bold">Founder Name</h3>
+          <p class="text-indigo-400 mt-2">Founder & CEO</p>
+        </div>
+
+        <div class="bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-8">
+          <img
+            src="https://ui-avatars.com/api/?name=Mentor&background=9333ea&color=fff&size=300"
+            class="w-32 h-32 rounded-full mx-auto mb-6"
+            alt="Mentor"
+          >
+          <h3 class="text-2xl font-bold">Lead Mentor</h3>
+          <p class="text-purple-400 mt-2">Senior Instructor</p>
+        </div>
+
+        <div class="bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-8">
+          <img
+            src="https://ui-avatars.com/api/?name=Support&background=ec4899&color=fff&size=300"
+            class="w-32 h-32 rounded-full mx-auto mb-6"
+            alt="Support"
+          >
+          <h3 class="text-2xl font-bold">Student Success</h3>
+          <p class="text-pink-400 mt-2">Support Lead</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="relative py-24 px-6 lg:px-8">
+    <div class="max-w-5xl mx-auto">
+
+      <div class="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 rounded-[2rem] p-12 text-center shadow-2xl">
+
+        <h2 class="text-4xl md:text-6xl font-black mb-6">
+          Ready to Start?
+        </h2>
+
+        <p class="text-xl text-white/90 max-w-2xl mx-auto mb-10">
+          Join thousands of students already transforming their careers with us.
+        </p>
+
+        <div class="flex flex-col sm:flex-row justify-center gap-6">
+          <a
+            href="/courses"
+            class="px-10 py-5 bg-white text-slate-900 font-bold rounded-2xl hover:scale-105 transition duration-300"
+          >
+            Explore Courses
+          </a>
+
+          <a
+            href="/register"
+            class="px-10 py-5 border-2 border-white text-white font-bold rounded-2xl hover:bg-white hover:text-slate-900 transition duration-300"
+          >
+            Join Now
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+</section>
+
+<%- include("partial/footer") %>

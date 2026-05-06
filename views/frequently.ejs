@@ -1,0 +1,151 @@
+  <script src="https://cdn.tailwindcss.com"></script>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css"/>
+<%- include("partial/nav") %>
+
+
+<section class="min-h-screen bg-gradient-to-br from-black via-blue-950 to-black text-white py-20 px-6 relative overflow-hidden">
+
+  <!-- Background Effects -->
+  <div class="absolute inset-0 pointer-events-none">
+    <div class="absolute top-20 left-10 w-72 h-72 bg-blue-500/10 rounded-full blur-3xl animate-pulse"></div>
+    <div class="absolute bottom-20 right-10 w-72 h-72 bg-purple-500/10 rounded-full blur-3xl animate-pulse"></div>
+  </div>
+
+  <div class="relative max-w-5xl mx-auto">
+
+    <!-- Header -->
+    <div class="text-center mb-20">
+      <span class="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-blue-500/10 border border-blue-400/20 text-blue-300 font-semibold mb-8">
+        ❓ Help Center
+      </span>
+
+      <h1 class="text-5xl md:text-7xl font-black mb-6 leading-tight">
+        Frequently Asked
+        <span class="bg-gradient-to-r from-blue-400 via-cyan-400 to-purple-400 bg-clip-text text-transparent">
+          Questions
+        </span>
+      </h1>
+
+      <p class="text-xl text-slate-400 max-w-3xl mx-auto leading-relaxed">
+        Everything you need to know about Gyansify, our courses,
+        certificates, payments, and AI learning assistant.
+      </p>
+    </div>
+
+    <!-- FAQ Container -->
+    <div class="space-y-6">
+
+      <!-- FAQ Item -->
+      <details class="group bg-white/5 backdrop-blur-2xl border border-white/10 rounded-3xl overflow-hidden hover:border-blue-500/40 transition-all duration-300">
+        <summary class="flex items-center justify-between p-8 cursor-pointer list-none">
+          <h3 class="text-xl font-bold">What is Gyansify?</h3>
+          <span class="text-4xl text-blue-400 group-open:rotate-45 transition-transform duration-300">+</span>
+        </summary>
+        <div class="px-8 pb-8 text-slate-400 leading-relaxed">
+          Gyansify is a modern online learning platform designed to help students and professionals
+          master real-world skills through premium courses, projects, certifications, and AI-powered learning.
+        </div>
+      </details>
+
+      <details class="group bg-white/5 backdrop-blur-2xl border border-white/10 rounded-3xl overflow-hidden hover:border-blue-500/40 transition-all duration-300">
+        <summary class="flex items-center justify-between p-8 cursor-pointer list-none">
+          <h3 class="text-xl font-bold">How do I enroll in a course?</h3>
+          <span class="text-4xl text-blue-400 group-open:rotate-45 transition-transform duration-300">+</span>
+        </summary>
+        <div class="px-8 pb-8 text-slate-400 leading-relaxed">
+          Simply create your account, browse our courses, select your desired course,
+          and complete the payment securely using Razorpay.
+        </div>
+      </details>
+
+      <details class="group bg-white/5 backdrop-blur-2xl border border-white/10 rounded-3xl overflow-hidden hover:border-blue-500/40 transition-all duration-300">
+        <summary class="flex items-center justify-between p-8 cursor-pointer list-none">
+          <h3 class="text-xl font-bold">Do I get lifetime access?</h3>
+          <span class="text-4xl text-blue-400 group-open:rotate-45 transition-transform duration-300">+</span>
+        </summary>
+        <div class="px-8 pb-8 text-slate-400 leading-relaxed">
+          Yes! Once you purchase a course, you get lifetime access,
+          including all future updates and bonus materials.
+        </div>
+      </details>
+
+      <details class="group bg-white/5 backdrop-blur-2xl border border-white/10 rounded-3xl overflow-hidden hover:border-blue-500/40 transition-all duration-300">
+        <summary class="flex items-center justify-between p-8 cursor-pointer list-none">
+          <h3 class="text-xl font-bold">Is Gyansify AI free to use?</h3>
+          <span class="text-4xl text-blue-400 group-open:rotate-45 transition-transform duration-300">+</span>
+        </summary>
+        <div class="px-8 pb-8 text-slate-400 leading-relaxed">
+          Absolutely! Gyansify AI is completely free for all registered users.
+          It helps you solve doubts, write code, and learn faster.
+        </div>
+      </details>
+
+      <details class="group bg-white/5 backdrop-blur-2xl border border-white/10 rounded-3xl overflow-hidden hover:border-blue-500/40 transition-all duration-300">
+        <summary class="flex items-center justify-between p-8 cursor-pointer list-none">
+          <h3 class="text-xl font-bold">Which payment methods are supported?</h3>
+          <span class="text-4xl text-blue-400 group-open:rotate-45 transition-transform duration-300">+</span>
+        </summary>
+        <div class="px-8 pb-8 text-slate-400 leading-relaxed">
+          We support UPI, Debit Cards, Credit Cards, Net Banking,
+          Wallets, and other secure payment methods through Razorpay.
+        </div>
+      </details>
+
+      <details class="group bg-white/5 backdrop-blur-2xl border border-white/10 rounded-3xl overflow-hidden hover:border-blue-500/40 transition-all duration-300">
+        <summary class="flex items-center justify-between p-8 cursor-pointer list-none">
+          <h3 class="text-xl font-bold">Will I receive a certificate?</h3>
+          <span class="text-4xl text-blue-400 group-open:rotate-45 transition-transform duration-300">+</span>
+        </summary>
+        <div class="px-8 pb-8 text-slate-400 leading-relaxed">
+          Yes, every completed course comes with an industry-recognized
+          certificate that you can share on LinkedIn and your resume.
+        </div>
+      </details>
+
+      <details class="group bg-white/5 backdrop-blur-2xl border border-white/10 rounded-3xl overflow-hidden hover:border-blue-500/40 transition-all duration-300">
+        <summary class="flex items-center justify-between p-8 cursor-pointer list-none">
+          <h3 class="text-xl font-bold">Can I access courses on mobile?</h3>
+          <span class="text-4xl text-blue-400 group-open:rotate-45 transition-transform duration-300">+</span>
+        </summary>
+        <div class="px-8 pb-8 text-slate-400 leading-relaxed">
+          Yes, Gyansify works perfectly on desktop, tablet, and mobile devices,
+          allowing you to learn anytime, anywhere.
+        </div>
+      </details>
+
+      <details class="group bg-white/5 backdrop-blur-2xl border border-white/10 rounded-3xl overflow-hidden hover:border-blue-500/40 transition-all duration-300">
+        <summary class="flex items-center justify-between p-8 cursor-pointer list-none">
+          <h3 class="text-xl font-bold">How can I contact support?</h3>
+          <span class="text-4xl text-blue-400 group-open:rotate-45 transition-transform duration-300">+</span>
+        </summary>
+        <div class="px-8 pb-8 text-slate-400 leading-relaxed">
+          You can contact our support team anytime at
+          <a href="mailto:gyansify@gmail.com" class="text-blue-400 hover:underline">
+            gyansify@gmail.com
+          </a>.
+        </div>
+      </details>
+
+    </div>
+
+    <!-- CTA -->
+    <div class="mt-20 text-center">
+      <h3 class="text-3xl font-bold mb-6">
+        Still Have Questions?
+      </h3>
+
+      <p class="text-slate-400 mb-8 text-lg">
+        Our support team is always ready to help you.
+      </p>
+
+      <a href="/contact"
+         class="inline-flex items-center gap-3 px-10 py-5 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl font-bold text-lg shadow-2xl hover:scale-105 transition duration-300">
+        Contact Support →
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<%- include("partial/footer") %>

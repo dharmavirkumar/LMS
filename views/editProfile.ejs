@@ -1,0 +1,161 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css"/>
+
+<%- include("partial/nav") %>
+
+<section class="min-h-screen bg-gradient-to-br from-slate-950 via-indigo-950 to-slate-900 py-12 px-4 sm:px-6 lg:px-8">
+
+    <div class="max-w-3xl mx-auto">
+
+        <!-- Header -->
+        <div class="text-center mb-10">
+            <h1 class="text-5xl font-black text-black mb-4">
+                Edit Profile
+            </h1>
+            <p class="text-slate-300 text-lg">
+                Update your personal information and profile picture
+            </p>
+        </div>
+
+        <!-- Card -->
+        <div class="bg-white/10 backdrop-blur-2xl border border-white/20 rounded-3xl shadow-2xl overflow-hidden">
+
+            <!-- Top Banner -->
+            <div class="h-32 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600"></div>
+
+            <div class="px-8 pb-8 -mt-16">
+
+                <!-- Current Avatar -->
+                <div class="flex justify-center mb-8">
+                    <div class="relative group">
+                        <img
+                            id="avatarPreview"
+                            src="<%= user?.avatar || 'https://ui-avatars.com/api/?name=' + encodeURIComponent(user?.name || 'User') + '&background=6366f1&color=fff&size=256' %>"
+                            alt="Profile Avatar"
+                            class="w-32 h-32 rounded-full object-cover border-4 border-white shadow-2xl"
+                        >
+
+                        <label
+                            for="avatar"
+                            class="absolute inset-0 bg-black/60 rounded-full flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition duration-300 cursor-pointer"
+                        >
+                            📷 Change
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Form -->
+                <form
+                    action="/profile/update"
+                    method="POST"
+                    enctype="multipart/form-data"
+                    class="space-y-8"
+                >
+
+                    <!-- Hidden File Input -->
+                    <input
+                        type="file"
+                        id="avatar"
+                        name="avatar"
+                        accept="image/*"
+                        class="hidden"
+                        onchange="previewImage(event)"
+                    >
+
+                    <!-- Name -->
+                    <div>
+                        <label class="block text-white font-semibold mb-3">
+                            Full Name
+                        </label>
+
+                        <input
+                            type="text"
+                            name="name"
+                            value="<%= user?.name || '' %>"
+                            required
+                            class="w-full px-5 py-4 rounded-2xl bg-white/10 border border-white/20 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
+                            placeholder="Enter your full name"
+                        >
+                    </div>
+
+                    <!-- Email (Readonly) -->
+                    <div>
+                        <label class="block text-white font-semibold mb-3">
+                            Email Address
+                        </label>
+
+                        <input
+                            type="email"
+                            value="<%= user?.email || '' %>"
+                            readonly
+                            class="w-full px-5 py-4 rounded-2xl bg-slate-800/50 border border-slate-700 text-slate-400 cursor-not-allowed"
+                        >
+                    </div>
+
+                    <!-- Bio -->
+                    <div>
+                        <label class="block text-white font-semibold mb-3">
+                            Bio
+                        </label>
+
+                        <textarea
+                            name="bio"
+                            rows="5"
+                            class="w-full px-5 py-4 rounded-2xl bg-white/10 border border-white/20 text-white placeholder-slate-400 resize-none focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
+                            placeholder="Tell us about yourself..."
+                        ><%= user?.bio || '' %></textarea>
+                    </div>
+
+                    <!-- Upload Box -->
+                    <label
+                        for="avatar"
+                        class="block border-2 border-dashed border-white/20 rounded-2xl p-8 text-center cursor-pointer hover:border-indigo-400 hover:bg-white/5 transition"
+                    >
+                        <div class="text-5xl mb-4">📤</div>
+                        <h3 class="text-white font-bold text-xl mb-2">
+                            Upload New Profile Picture
+                        </h3>
+                        <p class="text-slate-400">
+                            Click here to choose an image
+                        </p>
+                    </label>
+
+                    <!-- Buttons -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-4">
+
+                        <a
+                            href="/profile"
+                            class="text-center py-4 rounded-2xl border border-white/20 text-white font-semibold hover:bg-white/10 transition"
+                        >
+                            Cancel
+                        </a>
+
+                        <button
+                            type="submit"
+                            class="py-4 rounded-2xl bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white font-bold shadow-xl hover:scale-105 transition duration-300"
+                        >
+                            Save Changes
+                        </button>
+
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    function previewImage(event) {
+        const file = event.target.files[0];
+
+        if (!file) return;
+
+        const reader = new FileReader();
+
+        reader.onload = function(e) {
+            document.getElementById('avatarPreview').src = e.target.result;
+        };
+
+        reader.readAsDataURL(file);
+    }
+</script>

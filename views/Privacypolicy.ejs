@@ -1,0 +1,188 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css"/>
+<%- include("partial/nav") %>
+
+<section class="relative min-h-screen overflow-hidden bg-black text-white py-24 px-6">
+
+  <!-- Animated Background -->
+  <div class="absolute inset-0">
+    <div class="absolute top-0 left-1/4 w-96 h-96 bg-blue-600/20 rounded-full blur-3xl animate-pulse"></div>
+    <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-600/20 rounded-full blur-3xl animate-pulse"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(255,255,255,0.04)_1px,_transparent_1px)] bg-[length:35px_35px]"></div>
+  </div>
+
+  <div class="relative max-w-7xl mx-auto">
+
+    <!-- Hero Section -->
+    <div class="text-center mb-24">
+      <span class="inline-flex items-center gap-2 px-8 py-3 rounded-full bg-blue-500/10 border border-blue-400/20 text-blue-300 font-semibold text-sm tracking-wider uppercase mb-8 backdrop-blur-xl">
+        🔒 Legal & Security
+      </span>
+
+      <h1 class="text-6xl md:text-8xl font-black leading-tight mb-8">
+        Privacy
+        <span class="block bg-gradient-to-r from-blue-400 via-cyan-400 to-purple-500 bg-clip-text text-transparent">
+          Policy
+        </span>
+      </h1>
+
+      <p class="text-xl md:text-2xl text-gray-400 max-w-4xl mx-auto leading-relaxed">
+        Your trust matters. We are committed to protecting your data,
+        privacy, and learning experience at every step.
+      </p>
+
+      <p class="text-xl md:text-2xl text-gray-400 max-w-4xl mx-auto leading-relaxed">
+        Gyansify is operated as a Sole Proprietorship registered under MSME (Government of India).
+      </p>
+
+      <div class="mt-10 inline-flex items-center gap-3 px-6 py-3 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-xl text-gray-300">
+        <span class="text-green-400">●</span>
+        Last Updated: <%= new Date().toLocaleDateString() %>
+      </div>
+    </div>
+
+    <!-- Content Cards -->
+    <div class="grid gap-8">
+
+      <% const sections = [
+        {
+          number: "01",
+          title: "Introduction",
+          content: "Welcome to Gyansify. We respect your privacy and are dedicated to safeguarding your personal information while delivering world-class educational services."
+        },
+        {
+          number: "02",
+          title: "Information We Collect",
+          list: [
+            "Full Name",
+            "Email Address",
+            "Phone Number",
+            "Payment Information (secured via Razorpay)",
+            "Course Progress & Learning Activity"
+          ]
+        },
+        {
+          number: "03",
+          title: "How We Use Your Information",
+          list: [
+            "Create and manage your account",
+            "Process secure payments",
+            "Provide course access",
+            "Improve platform performance",
+            "Send important updates",
+            "Comply with legal requirements"
+          ]
+        },
+        {
+          number: "04",
+          title: "Payment Security",
+          content: "All transactions are securely processed through Razorpay. We never store your card, banking, or UPI credentials on our servers."
+        },
+        {
+          number: "05",
+          title: "International Users",
+          content: "Our platform serves learners globally. By using Gyansify, you consent to international data processing under this Privacy Policy."
+        },
+        {
+          number: "06",
+          title: "Data Protection",
+          content: "We employ modern encryption, secure servers, and industry best practices to protect your data against unauthorized access."
+        },
+        {
+          number: "07",
+          title: "Third-Party Services",
+          content: "We integrate trusted providers like Razorpay. Their handling of your data is governed by their respective privacy policies."
+        },
+        {
+          number: "08",
+          title: "Your Rights",
+          list: [
+            "Access your personal data",
+            "Request corrections",
+            "Delete your account",
+            "Contact us regarding privacy concerns"
+          ]
+        }
+      ]; %>
+
+      <% sections.forEach(section => { %>
+      <div class="group relative bg-white/5 backdrop-blur-2xl border border-white/10 rounded-3xl p-10 hover:border-blue-500/40 hover:bg-white/10 transition-all duration-500">
+
+        <div class="absolute inset-0 rounded-3xl bg-gradient-to-r from-blue-500/0 via-blue-500/5 to-purple-500/0 opacity-0 group-hover:opacity-100 transition"></div>
+
+        <div class="relative">
+          <div class="flex items-center gap-6 mb-8">
+            <div class="w-20 h-20 rounded-3xl bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center text-2xl font-black shadow-2xl">
+              <%= section.number %>
+            </div>
+
+            <h2 class="text-4xl font-bold">
+              <%= section.title %>
+            </h2>
+          </div>
+
+          <% if (section.content) { %>
+            <p class="text-gray-300 text-xl leading-relaxed">
+              <%= section.content %>
+            </p>
+          <% } %>
+
+          <% if (section.list) { %>
+            <div class="grid md:grid-cols-2 gap-5 mt-4">
+              <% section.list.forEach(item => { %>
+                <div class="flex items-center gap-4 p-4 rounded-2xl bg-white/5 border border-white/5">
+                  <div class="w-3 h-3 rounded-full bg-gradient-to-r from-blue-400 to-purple-500"></div>
+                  <span class="text-gray-300 text-lg"><%= item %></span>
+                </div>
+              <% }) %>
+            </div>
+          <% } %>
+        </div>
+      </div>
+      <% }) %>
+
+      <!-- Contact Card -->
+      <div class="relative overflow-hidden rounded-3xl p-12 bg-gradient-to-br from-blue-600/20 via-indigo-600/20 to-purple-600/20 border border-blue-400/20 backdrop-blur-3xl">
+
+        <div class="absolute top-0 right-0 w-72 h-72 bg-blue-500/20 rounded-full blur-3xl"></div>
+
+        <div class="relative">
+          <h2 class="text-5xl font-black mb-8">
+            Contact Us
+          </h2>
+
+          <p class="text-xl text-gray-300 mb-10 max-w-3xl">
+            Questions about this Privacy Policy? Our team is here to help you.
+          </p>
+
+          <div class="grid md:grid-cols-2 gap-6">
+            <div class="p-6 rounded-2xl bg-white/10 border border-white/10">
+              <p class="text-gray-400 mb-2">Platform</p>
+              <p class="text-2xl font-bold">Gyansify</p>
+            </div>
+
+            <div class="p-6 rounded-2xl bg-white/10 border border-white/10">
+              <p class="text-gray-400 mb-2">Founder</p>
+              <p class="text-2xl font-bold">Dharmavir Singh</p>
+            </div>
+
+            <div class="p-6 rounded-2xl bg-white/10 border border-white/10">
+              <p class="text-gray-400 mb-2">Email</p>
+              <p class="text-xl font-semibold break-all">gyansify@gmail.com</p>
+            </div>
+
+            <div class="p-6 rounded-2xl bg-white/10 border border-white/10">
+              <p class="text-gray-400 mb-2">Website</p>
+              <a href="https://lms-79o6.onrender.com"
+                 class="text-blue-400 hover:text-blue-300 text-lg font-semibold transition">
+                Visit Website →
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<%- include("partial/footer") %>

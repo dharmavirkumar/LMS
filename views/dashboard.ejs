@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100">
+
+<div class="flex min-h-screen">
+
+  <!-- 🔥 Sidebar -->
+  <aside class="w-64 bg-white shadow-xl p-6 hidden md:block">
+
+    <h2 class="text-2xl font-bold text-purple-600 mb-8">My LMS</h2>
+
+    <nav class="space-y-4 text-gray-700">
+
+      <a href="/dashboard" class="block px-4 py-2 rounded-lg bg-purple-100 text-purple-700 font-medium">
+        🏠 Dashboard
+      </a>
+
+      <a href="/course" class="block px-4 py-2 rounded-lg hover:bg-gray-100">
+        📚 Browse Projects
+      </a>
+
+    </nav>
+
+  </aside>
+
+
+  <!-- 🔥 Main -->
+  <main class="flex-1">
+
+    <!-- Navbar -->
+    <div class="bg-white shadow px-6 py-4 flex justify-between items-center">
+
+      <h2 class="text-xl font-bold text-gray-800">Dashboard</h2>
+
+      <div class="flex items-center gap-4">
+
+        <span class="text-gray-700 font-medium">
+          👋 <%= user ? user.name : "Guest" %>
+        </span>
+
+        <a href="/logout" 
+           class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg">
+          Logout
+        </a>
+
+      </div>
+
+    </div>
+
+
+    <!-- Content -->
+    <div class="p-6 max-w-7xl mx-auto">
+
+      <!-- 🔥 CALCULATIONS -->
+      <%
+        let totalCourses = courses.length;
+        let completedCourses = courses.filter(c => c.progress === 100).length;
+
+        let totalProgress = courses.reduce((acc, c) => acc + (c.progress || 0), 0);
+        let avgProgress = totalCourses > 0 ? Math.round(totalProgress / totalCourses) : 0;
+      %>
+
+      <!-- 🔥 Stats -->
+      <div class="grid md:grid-cols-3 gap-6 mb-10">
+
+        <div class="bg-gradient-to-r from-purple-600 to-indigo-600 text-white p-6 rounded-xl shadow">
+          <p class="text-sm opacity-80">Enrolled Projects</p>
+          <h2 class="text-3xl font-bold mt-2"><%= totalCourses %></h2>
+        </div>
+
+        <div class="bg-gradient-to-r from-green-500 to-emerald-600 text-white p-6 rounded-xl shadow">
+          <p class="text-sm opacity-80">Completed</p>
+          <h2 class="text-3xl font-bold mt-2"><%= completedCourses %></h2>
+        </div>
+
+        <div class="bg-gradient-to-r from-pink-500 to-rose-500 text-white p-6 rounded-xl shadow">
+          <p class="text-sm opacity-80">Average Progress</p>
+          <h2 class="text-3xl font-bold mt-2"><%= avgProgress %>%</h2>
+        </div>
+
+      </div>
+
+
+      <!-- 🔥 My Courses -->
+      <div class="flex justify-between items-center mb-6">
+
+        <h2 class="text-2xl font-semibold text-gray-800">
+          My Projects
+        </h2>
+
+        <a href="/course" 
+           class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg">
+          Browse Projects
+        </a>
+
+      </div>
+
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+        <% if (!courses || courses.length === 0) { %>
+
+          <div class="col-span-full text-center bg-white p-10 rounded-xl shadow">
+            <p class="text-gray-500 mb-4">No courses enrolled yet</p>
+            <a href="/course" 
+               class="bg-purple-600 text-white px-6 py-2 rounded-lg">
+              Explore Projects
+            </a>
+          </div>
+
+        <% } %>
+
+
+        <% courses.forEach(course => { %>
+
+          <div class="bg-white rounded-2xl shadow-md hover:shadow-2xl transition overflow-hidden group">
+
+            <!-- Thumbnail -->
+            <div class="relative">
+              <img src="<%= course.thumbnail || '/default.jpg' %>"
+                   class="w-full h-44 object-cover group-hover:scale-105 transition">
+
+              <% if (course.progress === 100) { %>
+                <div class="absolute top-2 right-2 bg-green-600 text-white text-xs px-2 py-1 rounded">
+                  Completed
+                </div>
+              <% } %>
+            </div>
+
+            <!-- Content -->
+            <div class="p-5">
+
+              <h3 class="font-semibold text-lg mb-2 group-hover:text-purple-600">
+                <%= course.title %>
+              </h3>
+
+              <p class="text-sm text-gray-500 mb-3 line-clamp-2">
+                <%= course.description %>
+              </p>
+
+              <!-- 🔥 Progress -->
+              <div class="mb-3">
+
+                <div class="flex justify-between text-xs text-gray-500 mb-1">
+                  <span>Progress</span>
+                  <span><%= course.progress || 0 %>%</span>
+                </div>
+
+                <div class="w-full bg-gray-200 h-2 rounded-full">
+                  <div class="bg-gradient-to-r from-purple-600 to-indigo-600 h-2 rounded-full transition-all duration-500"
+                       style="width: <%= course.progress || 0 %>%">
+                  </div>
+                </div>
+
+              </div>
+
+              <!-- 🔥 ACTION BUTTONS -->
+              <div class="flex gap-2">
+
+                <a href="/course/player/<%= course._id %>" 
+                   class="flex-1 text-center bg-purple-600 hover:bg-purple-700 text-white py-2 rounded-lg">
+                  Continue
+                </a>
+
+                <% if (course.progress === 100) { %>
+                  <a href="/certificate/<%= course._id %>" 
+                     class="flex-1 text-center bg-green-600 hover:bg-green-700 text-white py-2 rounded-lg">
+                    Certificate
+                  </a>
+                <% } %>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        <% }) %>
+
+      </div>
+
+    </div>
+
+  </main>
+
+</div>
+
+</body>
+</html>

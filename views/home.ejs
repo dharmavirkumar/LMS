@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Gyansify</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-50 text-gray-800">
+
+<%- include('partial/nav') %>
+
+<!-- ================= HERO ================= -->
+<section class="bg-gradient-to-br from-black via-blue-950 to-black text-white py-24 px-6 relative overflow-hidden">
+
+  <!-- Glow Background Effect -->
+  <div class="absolute top-0 left-0 w-72 h-72 bg-blue-500 opacity-20 blur-3xl rounded-full"></div>
+  <div class="absolute bottom-0 right-0 w-72 h-72 bg-cyan-400 opacity-20 blur-3xl rounded-full"></div>
+
+  <div class="grid md:grid-cols-2 gap-16 items-center relative z-10">
+
+    <!-- LEFT CONTENT -->
+    <div>
+      <h1 class="text-4xl md:text-5xl font-bold leading-tight mb-6">
+        <span class="text-cyan-400">Get Industrial Experience</span><br>
+        by Building Real Projects
+      </h1>
+
+      <p class="text-gray-300 mb-8">
+        MSME-registered • 40,000+ learners • Industry-style tasks • Certificate proof
+      </p>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 text-sm">
+
+        <div class="bg-white/5 backdrop-blur-md p-4 rounded-xl border border-white/10 hover:scale-105 transition">
+          <p class="text-blue-400 font-semibold">Project-based learning</p>
+          <p class="text-gray-400">Build real apps & dashboards</p>
+        </div>
+
+        <div class="bg-white/5 backdrop-blur-md p-4 rounded-xl border border-white/10 hover:scale-105 transition">
+          <p class="text-blue-400 font-semibold">Mentor on call</p>
+          <p class="text-gray-400">Daily reviews & doubt solving</p>
+        </div>
+
+        <div class="bg-white/5 backdrop-blur-md p-4 rounded-xl border border-white/10 hover:scale-105 transition">
+          <p class="text-blue-400 font-semibold">Industry workflows</p>
+          <p class="text-gray-400">Git, CI/CD, debugging</p>
+        </div>
+
+        <div class="bg-white/5 backdrop-blur-md p-4 rounded-xl border border-white/10 hover:scale-105 transition">
+          <p class="text-blue-400 font-semibold">Portfolio ready</p>
+          <p class="text-gray-400">Live projects & GitHub</p>
+        </div>
+
+      </div>
+
+     
+    </div>
+
+    <!-- RIGHT IMAGE + FLOATING REVIEWS -->
+    <div class="relative flex justify-center">
+
+      <img src="/firstimage.png" alt="Hero Image"
+           class="w-full max-w-md md:max-w-lg drop-shadow-[0_0_40px_rgba(0,150,255,0.5)] relative z-10">
+
+    </div>
+
+  </div>
+</section>
+
+
+<div class="flex justify-center">
+  <div class="flex gap-4 flex-wrap justify-center">
+
+      <!-- Google -->
+      <div class="bg-white text-black px-10 py-2 rounded-lg shadow-lg flex gap-2 animate-bounce">
+        <img src="https://www.svgrepo.com/show/475656/google-color.svg" class="w-5">
+        <span>Google <br><p class="text-sm font-semibold">4.5 ⭐</p></span>
+      </div>
+
+      <!-- LinkedIn -->
+      <div class="bg-white text-black px-10 py-2 rounded-lg shadow-lg flex items-center gap-2 animate-bounce delay-200">
+        <img src="https://w7.pngwing.com/pngs/272/770/png-transparent-trustpilot-logos-brands-in-colors-icon.png" class="w-5">
+        <span>Trustpilot <br><p class="text-sm font-semibold">4.0 ⭐</p></span>
+      </div>
+
+      <!-- AmbitionBox -->
+      <div class="bg-white text-black px-10 py-2 rounded-lg shadow-lg flex items-center gap-4 animate-bounce delay-200">
+        <img src="https://static.ambitionbox.com/img/ab-brand.png" class="w-10">
+        <span>AmbitionBox <br><p class="text-sm font-semibold">4.2 ⭐</p></span>
+      </div>
+
+      <!-- Glassdoor -->
+      <div class="bg-white text-black px-10 py-2 rounded-lg shadow-lg flex items-center gap-4 animate-bounce delay-200">
+        <img src="https://e7.pngegg.com/pngimages/176/843/png-clipart-glassdoor-logo-service-job-salary-social-miscellaneous-text.png" class="w-10">
+        <span>Glassdoor <br><p class="text-sm font-semibold">4.6 ⭐</p></span>
+      </div>
+
+  </div>
+</div>
+
+
+<section class="bg-gray-100 py-20 overflow-hidden">
+
+  <h2 class="text-3xl md:text-4xl font-bold text-center mb-14">
+    Loved by learners and educators across the globe
+  </h2>
+
+  <!-- ROW 1 (Left Scroll) -->
+  <div class="relative overflow-hidden mb-10">
+    <div class="flex gap-16 marquee">
+
+      <!-- logos -->
+      <div class="logo-item">
+        <img src="https://www.svgrepo.com/show/475656/google-color.svg">
+        <p>Google</p>
+      </div>
+
+      <div class="logo-item">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg">
+        <p>Microsoft</p>
+      </div>
+
+      <div class="logo-item">
+        <img src="https://newcastlepartysales.com/wp-content/uploads/2025/02/png-transparent-razorpay-logo-tech-companies-thumbnail.png">
+        <p>Razorpay</p>
+      </div>
+
+      <div class="logo-item">
+        <img src="https://upload.wikimedia.org/wikipedia/en/f/ff/Wipro_Logo_1.png">
+        <p>Wipro</p>
+      </div>
+
+
+      <div class="logo-item">
+        <img src="https://www.citypng.com/public/uploads/preview/hd-upwork-logo-transparent-background-701751694712899z3s733b04e.png">
+        <p>Upwork</p>
+      </div>
+
+      <div class="logo-item">
+        <img src="https://www.cloudanalogy.com/wp-content/uploads/2025/03/Group-1-2.png">
+        <p>Cloud Analogy</p>
+      </div>
+
+      <div class="logo-item">
+        <img src="	https://www.earlyjobs.ai/_next/image?url=%2Fv2%2Flogo%2Flogo%20(1).png&w=640&q=75">
+        <p>EarlyJobs</p>
+      </div>
+
+      <!-- duplicate for smooth loop -->
+      <div class="logo-item">
+        <img src="https://www.svgrepo.com/show/475656/google-color.svg">
+        <p>Google</p>
+      </div>
+
+      <div class="logo-item">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg">
+        <p>Microsoft</p>
+      </div>
+
+      <div class="logo-item">
+        <img src="https://via.placeholder.com/80">
+        <p>Upwork</p>
+      </div>
+
+      <div class="logo-item">
+        <img src="	https://www.cloudanalogy.com/wp-content/uploads/2025/03/Group-1-2.png">
+        <p>Cloud Analogy</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ROW 2 (Right Scroll - Reverse) -->
+  <div class="relative overflow-hidden">
+    <div class="flex gap-16 marquee-reverse">
+
+      <div class="logo-item">
+        <img src="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=375,fit=crop/AR0LZEEaort4aDO1/kc-logo-Yan1W4XZaJhaNwKW.png">
+        <p>Kriyah Consulting</p>
+      </div>
+
+      <div class="logo-item">
+        <img src="https://www.kalpitatechnologies.com/assets/common/black-logo.png">
+        <p>Kalpita Technologies</p>
+      </div>
+
+      <div class="logo-item">
+        <img src="https://www.gtechindia.com/assets/images/logo.png">
+        <p>G Tech</p>
+      </div>
+
+      <div class="logo-item">
+        <img src="https://ik.imagekit.io/advanceagility/uploads/logos/imagekit-673b3968e375273f60093735-imagekit-6713ae71e375273f60d3e627-logo-1729343088-1731934565.svg">
+        <p>Advance Agility</p>
+      </div>
+
+      <div class="logo-item">
+        <img src="https://neuome.com/wp-content/uploads/2024/10/Neuome-Logo2-white.png">
+        <p>Neuome</p>
+      </div>
+
+      <!-- duplicate -->
+      <div class="logo-item">
+        <img src="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=375,fit=crop/AR0LZEEaort4aDO1/kc-logo-Yan1W4XZaJhaNwKW.png">
+        <p>Kriyah Consulting</p>
+      </div>
+
+      <div class="logo-item">
+        <img src="https://www.kalpitatechnologies.com/assets/common/black-logo.png">
+        <p>Kalpita Technologies</p>
+      </div>
+
+      <div class="logo-item">
+        <img src="https://www.gtechindia.com/assets/images/logo.png">
+        <p>G Tech</p>
+      </div>
+
+      <div class="logo-item">
+        <img src="https://ik.imagekit.io/advanceagility/uploads/logos/imagekit-673b3968e375273f60093735-imagekit-6713ae71e375273f60d3e627-logo-1729343088-1731934565.svg">
+        <p>Advance Agility</p>
+      </div>
+
+    </div>
+  </div>
+
+</section>
+
+<style>
+.logo-item {
+  min-width: 140px;
+  text-align: center;
+  /* opacity: 0.7;
+  transition: all 0.3s ease; */
+}
+.logo-item img {
+  height: 40px;
+  margin: 0 auto 8px;
+}
+.logo-item p {
+  font-size: 14px;
+  color: #555;
+}
+.logo-item:hover {
+  opacity: 1;
+  transform: scale(1.05);
+}
+
+/* smooth marquee */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes marqueeReverse {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+
+.marquee {
+  width: max-content;
+  animation: marquee 25s linear infinite;
+}
+
+.marquee-reverse {
+  width: max-content;
+  animation: marqueeReverse 25s linear infinite;
+}
+
+/* pause on hover */
+/* .marquee:hover,
+.marquee-reverse:hover {
+  animation-play-state: paused;
+} */
+
+/* fade edges (premium look) */
+section::before,
+section::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 120px;
+  height: 100%;
+  z-index: 2;
+}
+
+/* section::before {
+  left: 0;
+  background: linear-gradient(to right, #f3f4f6, transparent);
+} */
+/* 
+section::after {
+  right: 0;
+  background: linear-gradient(to left, #f3f4f6, transparent);
+} */
+</style>
+
+<!-- ================= TRANSFORM CAREER ================= -->
+<section class="bg-gray-50 py-16 px-6">
+  <div class="max-w-7xl mx-auto">
+
+    <div class="grid md:grid-cols-2 gap-10 items-center">
+      
+      <div>
+        <h1 class="text-4xl font-bold text-gray-800 mb-4">
+          Transform Your <span class="text-blue-500">Career</span>
+        </h1>
+
+        <p class="text-gray-600 mb-8">
+          Companies hire demonstrable skills. Build portfolio-grade projects, get internship validation,
+          and walk into interviews with live deliverables not promises.
+        </p>
+
+        <% const careerFeatures = [
+          "Learners trained in hands-on projects",
+          "Companies recognize our internship validation",
+          "Years of project-driven training experience",
+          "Continued mentor & community support"
+        ]; %>
+
+        <div class="grid sm:grid-cols-2 gap-4">
+          <% careerFeatures.forEach(f => { %>
+            <div class="bg-white shadow-sm border rounded-xl p-4 text-gray-700">
+              <%= f %>
+            </div>
+          <% }) %>
+        </div>
+
+        <div class="mt-6 bg-blue-50 border rounded-xl p-5">
+          <h3 class="font-semibold mb-2">Career-ready outcomes</h3>
+          <p class="text-sm text-gray-600">
+            Deployable projects, GitHub repos, and case studies recruiters can verify.
+          </p>
+        </div>
+      </div>
+
+
+
+<!-- right side -->
+
+<div class="hidden md:flex justify-center items-center relative w-full h-[400px]">
+
+  <!-- Glow Background -->
+  <div class="absolute w-80 h-80 bg-blue-500/20 blur-3xl rounded-full"></div>
+
+  <!-- Center Circle -->
+  <div class="absolute w-40 h-40 rounded-full bg-white/10 backdrop-blur-lg border border-white/20 flex items-center justify-center shadow-xl z-10">
+    <p class="text-white font-semibold">Tech Stack</p>
+  </div>
+
+  <!-- Orbit Container -->
+  <div class="orbit w-[300px] h-[300px]">
+
+    <!-- ICONS -->
+    <div class="orbit-item" style="--i:0;">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" />
+    </div>
+
+    <div class="orbit-item" style="--i:1;">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" />
+    </div>
+
+    <div class="orbit-item" style="--i:2;">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" />
+    </div>
+
+    <div class="orbit-item" style="--i:3;">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" />
+    </div>
+
+    <div class="orbit-item" style="--i:4;">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" />
+    </div>
+
+    <div class="orbit-item" style="--i:5;">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" />
+    </div>
+
+    <div class="orbit-item" style="--i:6;">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" />
+    </div>
+
+    <div class="orbit-item" style="--i:7;">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" />
+    </div>
+
+  </div>
+
+</div>
+
+    </div>
+
+<!-- ================= TOP PROJECTS ================= -->
+<section class="py-20 bg-gray-100">
+
+  <h2 class="text-4xl font-bold text-center mb-14">
+    Top Projects
+  </h2>
+
+  <div class="max-w-7xl mx-auto grid md:grid-cols-3 gap-8 px-6">
+
+    <% courses.forEach(course => { %>
+
+      <div class="bg-white rounded-2xl shadow hover:shadow-xl transition overflow-hidden">
+
+        <!-- Thumbnail -->
+        <img src="<%= course.thumbnail || '/default.jpg' %>" 
+             class="w-full h-56 object-cover">
+
+        <!-- Content -->
+        <div class="p-6 text-center">
+
+          <h3 class="text-xl font-bold mb-4">
+            <%= course.title %>
+          </h3>
+
+          <a href="/course/<%= course._id %>"
+             class="inline-block bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-full">
+
+            View Project →
+
+          </a>
+
+        </div>
+
+      </div>
+
+    <% }) %>
+
+  </div>
+
+</section>
+
+</section>
+
+
+
+
+<!-- ================= WHY CHOOSE ================= -->
+<section class="bg-gradient-to-br from-black via-blue-950 to-black text-white py-24 px-6">
+
+  <div class="max-w-6xl mx-auto text-center">
+
+    <!-- Heading -->
+    <h1 class="text-4xl md:text-5xl font-bold mb-6">
+      Why Choose 
+      <span class="bg-gradient-to-r from-cyan-400 to-blue-500 text-transparent bg-clip-text">
+        Gyansify ?
+      </span>
+    </h1>
+
+    <p class="text-gray-400 max-w-2xl mx-auto mb-16">
+      Experience the difference with live doubt clearing sessions, enhanced interactive 
+      training, and personalized mentorship that sets us apart from the competition.
+    </p>
+
+    <!-- Comparison Box -->
+    <div class="bg-white/5 border border-white/10 rounded-2xl p-8 backdrop-blur-lg">
+
+      <!-- Header -->
+      <div class="grid grid-cols-3 items-center mb-6">
+
+        <div class="text-left text-gray-400">Features</div>
+
+        <div class="flex flex-col items-center">
+          <div class="bg-gradient-to-r from-blue-500 to-purple-600 px-4 py-2 rounded-xl mb-2">
+            <span class="font-bold">G</span>
+          </div>
+          <p class="font-semibold">Gyansify</p>
+          <div class="w-16 h-1 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full mt-1"></div>
+        </div>
+
+        <div class="flex flex-col items-center">
+          <div class="bg-gray-700 px-4 py-2 rounded-xl mb-2 text-sm">
+            Others
+          </div>
+          <p class="text-gray-400">Other Platforms</p>
+        </div>
+
+      </div>
+
+      <!-- Dynamic Features -->
+      <% const comparisonFeatures = [
+        { name: "1-on-1 Doubt Clearing", gyansify: true, others: false },
+        { name: "Interactive Lectures", gyansify: true, others: false },
+        { name: "Mentorship", gyansify: true, others: false },
+        { name: "Project Learning", gyansify: true, others: true },
+        { name: "Live Project-Based Learning", gyansify: true, others: false },
+        { name: "Paid Internships with Stipend", gyansify: true, others: false },
+        { name: "Multiple Industry Certifications", gyansify: true, others: false },
+        { name: "Job Placement Assistance", gyansify: true, others: true },
+        { name: "Industry Expert Mentors", gyansify: true, others: false },
+        { name: "Flexible Scheduling", gyansify: true, others: false }
+      ]; %>
+
+      <% comparisonFeatures.forEach(f => { %>
+        <div class="grid grid-cols-3 items-center py-4 border-t border-white/10">
+
+          <!-- Feature -->
+          <div class="text-left text-gray-300">
+            <%= f.name %>
+          </div>
+
+          <!-- NullClass -->
+          <div class="text-center text-green-400 text-lg">
+            <%= f.gyansify ? "✅" : "❌" %>
+          </div>
+
+          <!-- Others -->
+          <div class="text-center text-red-400 text-lg">
+            <%= f.others ? "✅" : "❌" %>
+          </div>
+
+        </div>
+      <% }) %>
+
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ================= refund ================= -->
+
+<section class="bg-gradient-to-br from-black via-blue-950 to-black text-white py-24 px-6 my-10">
+  <div class="max-w-7xl mx-auto">
+    
+    <!-- Header -->
+    <div class="text-center mb-20">
+      <span class="inline-block px-6 py-3 rounded-full bg-purple-500/20 text-purple-300 border border-purple-500/30 text-sm font-semibold mb-6">
+        Refund Policy
+      </span>
+      
+      <h1 class="text-5xl md:text-7xl font-bold text-white mb-6">
+        Performance-Based Refund Policy
+      </h1>
+      
+      <p class="text-xl text-slate-300 max-w-4xl mx-auto leading-relaxed">
+        Learners may become eligible for a course fee refund upon successful completion of all required criteria and evaluation standards.
+      </p>
+    </div>
+
+    <!-- Main Content -->
+    <div class="grid lg:grid-cols-3 gap-8">
+      
+      <!-- Left Content -->
+      <div class="lg:col-span-2 space-y-8">
+        
+        <!-- Eligibility -->
+        <div class="bg-white/5 backdrop-blur-lg border border-white/10 rounded-3xl p-10">
+          <h2 class="text-4xl font-bold text-white mb-8">
+            Refund Eligibility Requirements
+          </h2>
+          
+          <div class="space-y-6">
+            <div class="flex gap-5">
+              <div class="w-12 h-12 rounded-full bg-green-500/20 flex items-center justify-center flex-shrink-0">
+                <span class="text-green-400 text-2xl">✓</span>
+              </div>
+              <div>
+                <h3 class="text-2xl font-semibold text-white mb-2">
+                  Complete All Modules
+                </h3>
+                <p class="text-slate-300 text-lg">
+                  All lessons, assignments, and assessments must be completed within the program timeline.
+                </p>
+              </div>
+            </div>
+
+            <div class="flex gap-5">
+              <div class="w-12 h-12 rounded-full bg-green-500/20 flex items-center justify-center flex-shrink-0">
+                <span class="text-green-400 text-2xl">✓</span>
+              </div>
+              <div>
+                <h3 class="text-2xl font-semibold text-white mb-2">
+                  Submit Required Projects
+                </h3>
+                <p class="text-slate-300 text-lg">
+                  All mandatory projects must be submitted before the deadline for evaluation.
+                </p>
+              </div>
+            </div>
+
+            <div class="flex gap-5">
+              <div class="w-12 h-12 rounded-full bg-green-500/20 flex items-center justify-center flex-shrink-0">
+                <span class="text-green-400 text-2xl">✓</span>
+              </div>
+              <div>
+                <h3 class="text-2xl font-semibold text-white mb-2">
+                  Quality & Evaluation Approval
+                </h3>
+                <p class="text-slate-300 text-lg">
+                  Projects must meet defined quality standards and pass internal evaluation conducted by the review team.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- AI Policy -->
+        <div class="bg-red-500/10 border border-red-500/30 rounded-3xl p-10">
+          <div class="flex items-center gap-4 mb-6">
+            <div class="w-16 h-16 rounded-full bg-red-500/20 flex items-center justify-center">
+              <span class="text-4xl">⚠️</span>
+            </div>
+            <h2 class="text-4xl font-bold text-red-400">
+              Academic Integrity Policy
+            </h2>
+          </div>
+
+          <p class="text-xl text-slate-200 leading-relaxed mb-6">
+            All submissions must represent the learner’s own understanding and effort. Use of automated tools or copied content that bypasses learning objectives may lead to disqualification from refund eligibility.
+          </p>
+
+          <ul class="space-y-4 text-lg text-slate-300">
+            <li class="flex items-start gap-3">
+              <span class="text-red-400 mt-1">✖</span>
+              Submissions must reflect genuine learning and effort.
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="text-red-400 mt-1">✖</span>
+              Plagiarism or misuse of tools may result in rejection.
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="text-red-400 mt-1">✖</span>
+              Final decision regarding eligibility rests with the review team.
+            </li>
+          </ul>
+        </div>
+
+        <!-- Terms -->
+        <div class="bg-white/5 backdrop-blur-lg border border-white/10 rounded-3xl p-10">
+          <h2 class="text-4xl font-bold text-white mb-8">
+            Additional Terms
+          </h2>
+
+          <ul class="space-y-5 text-lg text-slate-300">
+            <li class="flex gap-4">
+              <span class="text-purple-400 font-bold">01.</span>
+              Refund requests must be submitted within the specified timeline after project evaluation.
+            </li>
+            <li class="flex gap-4">
+              <span class="text-purple-400 font-bold">02.</span>
+              Processing timelines may vary based on payment method and verification.
+            </li>
+            <li class="flex gap-4">
+              <span class="text-purple-400 font-bold">03.</span>
+              Any misuse, fraud, or violation of guidelines may lead to disqualification.
+            </li>
+            <li class="flex gap-4">
+              <span class="text-purple-400 font-bold">04.</span>
+              The organization reserves the right to modify or update this policy at any time.
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Sidebar -->
+      <div class="space-y-8">
+        
+        <div class="bg-gradient-to-br from-emerald-500 to-green-600 rounded-3xl p-10 text-center shadow-2xl">
+          <div class="text-7xl mb-6">💰</div>
+          <h3 class="text-4xl font-bold text-white mb-4">
+            Eligible for Refund
+          </h3>
+          <p class="text-xl text-white font-semibold">
+            Based on performance & completion
+          </p>
+        </div>
+
+        <div class="bg-white/5 backdrop-blur-lg border border-white/10 rounded-3xl p-8">
+          <h4 class="text-3xl font-bold text-white mb-6">
+            Quick Summary
+          </h4>
+
+          <div class="space-y-4 text-slate-300">
+            <p>✓ Complete all modules</p>
+            <p>✓ Submit required projects</p>
+            <p>✓ Follow academic guidelines</p>
+            <p>✓ Pass evaluation</p>
+            <p>✓ Become eligible for refund</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CTA ================= -->
+<section class="py-20 text-center bg-gradient-to-br from-black via-blue-950 to-black text-white my-5">
+  <h2 class="text-3xl font-bold mb-4">Start Your Journey 🚀</h2>
+  <a href="/course" class="bg-yellow-400 text-black px-6 py-3 rounded-lg">
+    Browse Courses
+  </a>
+</section>
+
+<%- include('partial/footer') %>
+<style>
+/* Orbit Rotation */
+.orbit {
+  position: relative;
+  animation: rotateOrbit 20s linear infinite;
+}
+
+@keyframes rotateOrbit {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Each Icon Position */
+.orbit-item {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: rotate(calc(45deg * var(--i))) translate(130px) rotate(calc(-45deg * var(--i)));
+}
+
+/* Icon Style */
+.orbit-item img {
+  width: 40px;
+  height: 40px;
+  background: white;
+  padding: 6px;
+  border-radius: 10px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+/* Optional Hover Effect */
+.orbit-item img:hover {
+  transform: scale(1.2);
+  transition: 0.3s;
+}
+</style>
+</body>
+</html>

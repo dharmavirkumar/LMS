@@ -1,0 +1,130 @@
+<nav class="flex justify-between items-center px-10 py-4 shadow-sm bg-white sticky top-0 z-50">
+
+  <!-- LOGO -->
+  <h1 class="text-2xl font-bold text-indigo-600">Gyansify</h1>
+
+  <!-- MENU -->
+  <div class="hidden md:flex gap-8 items-center text-sm">
+
+    <a href="/credibility" class="hover:text-blue-400">Our Credibility</a>
+    <a href="/auth/dashboard" class="hover:text-blue-400">Projects</a>
+
+    <!-- 🔥 RESOURCES DROPDOWN -->
+    <div class="relative group">
+      <span class="cursor-pointer hover:text-blue-400">Resources </span>
+
+      <!-- ✅ FIX: add z-50 + smooth -->
+      <div class="absolute left-0 hidden group-hover:block bg-white shadow-lg rounded-lg mt-2 w-44 border z-50">
+
+        <!-- <a href="#" class="block px-4 py-2 hover:bg-gray-100">
+          Blogs
+        </a> -->
+
+        <% if(user) { %>
+          <a href="/certificate/:courseId" class="block px-4 py-2 hover:bg-gray-100">
+            🎓 Certificates
+          </a>
+        <% } else { %>
+          <span class="block px-4 py-2 text-gray-400 cursor-not-allowed">
+            🎓 Certificates 🔒
+          </span>
+        <% } %>
+
+      </div>
+    </div>
+
+    <a href="/internship" class="hover:text-blue-400">Internship</a>
+
+    <% if(user) { %>
+      <a href="/live-sessions" class="hover:text-blue-400">
+        🔴 Live Sessions
+      </a>
+    <% } else { %>
+      <span class="text-gray-400 cursor-not-allowed">
+        🔴 Live Sessions 🔒
+      </span>
+    <% } %>
+
+    
+    <a href="/blogs" class="hover:text-blue-400">Blogs</a>  
+
+    
+
+  </div>
+
+  <!-- RIGHT -->
+  <div class="flex items-center gap-4 relative">
+
+    <% if(user) { %>
+
+      <!-- PROFILE -->
+      <div class="relative">
+
+        <button onclick="toggleDropdown(event)" 
+                class="flex items-center gap-2">
+
+          <img src="https://ui-avatars.com/api/?name=<%= user.name %>" 
+               class="w-9 h-9 rounded-full border">
+
+          <span class="text-sm font-semibold hidden md:block">
+            <%= user.name %>
+          </span>
+        </button>
+
+        <!-- DROPDOWN -->
+        <div id="dropdownMenu" 
+             class="hidden absolute right-0 mt-3 w-48 bg-white rounded-xl shadow-lg border z-50">
+
+          <a href="/auth/dashboard" class="block px-4 py-2 hover:bg-gray-100">
+            📊 Dashboard
+          </a>
+
+          <a href="/my-courses" class="block px-4 py-2 hover:bg-gray-100">
+            📚 My Courses
+          </a>
+
+          <a href="/profile" class="block px-4 py-2 hover:bg-gray-100">
+            👤 Profile
+          </a>
+
+          <hr>
+
+          <a href="/auth/logout" class="block px-4 py-2 text-red-500 hover:bg-gray-100">
+            🚪 Logout
+          </a>
+
+        </div>
+
+      </div>
+
+    <% } else { %>
+
+      <a href="/auth/login" class="text-sm hover:text-indigo-600">Login</a>
+
+      <a href="/auth/register" 
+         class="bg-indigo-600 text-white px-4 py-2 rounded-lg text-sm">
+        Signup
+      </a>
+
+    <% } %>
+
+  </div>
+
+</nav>
+
+<script>
+function toggleDropdown(e) {
+  e.stopPropagation(); // 🔥 prevent auto close
+  const menu = document.getElementById("dropdownMenu");
+  menu.classList.toggle("hidden");
+}
+
+// click outside close
+window.addEventListener("click", function(e) {
+  const menu = document.getElementById("dropdownMenu");
+
+  if (!e.target.closest("#dropdownMenu") && !e.target.closest("button")) {
+    menu.classList.add("hidden");
+  }
+});
+</script>
